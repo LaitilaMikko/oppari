@@ -4,13 +4,9 @@ export default function reducer(state = {
     fetched: false,
     error: null,
     campaigns: [],
-    newCampaign: {
-        name: "",
-        screens: "",
-        screen_width: "",
-        screen_height: ""
-    }
+    newCampaign: {}
 },action){
+
     switch(action.type){
 
         case "FETCH_CAMPAIGNS": {
@@ -25,19 +21,20 @@ export default function reducer(state = {
             }
         }
         case "FETCH_CAMPAIGNS_FULFILLED": {
-            return {
+            return {...state,
                 fetching: false,
                 fetched: true,
                 campaigns: action.payload
             }
         }
         case "CREATE_CAMPAIGN_FULFILLED": {
-            return {
-                created: true
+            return {...state,
+                created: true,
+                newCampaign: action.payload
             }
         }
         case "CREATE_CAMPAIGN_REJECTED": {
-            return{
+            return{...state,
                 created: false,
                 error: action.payload
             }

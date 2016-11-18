@@ -11,7 +11,7 @@ import CreateCampaign from "../dumbcomponents/CreateCampaign";
 
 @connect((store) => {
     return {
-        campaigns: store.Campaigns.campaigns
+        campaigns: store.Campaigns
     };
 })
 
@@ -29,7 +29,7 @@ export default class Layout extends React.Component {
             <div>
                 <Header title="FrontPage" location="FrontPage" />
                 <CreateCampaign createCampaign={this.createCampaign.bind(this)} />
-                <AllCampaigns campaigns={this.props.campaigns} />
+                <AllCampaigns campaigns={this.props.campaigns.campaigns} />
             </div>
         );
     }

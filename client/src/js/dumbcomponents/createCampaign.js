@@ -1,5 +1,6 @@
 import React from "react";
 import Serialize from "form-serialize";
+import {browserHistory} from "react-router";
 
 export default class CreateCampaign extends React.Component {
     constructor(){
@@ -20,6 +21,7 @@ export default class CreateCampaign extends React.Component {
         let form = document.getElementById("uploadForm");
         let data = Serialize(form, { hash: true });
         this.props.createCampaign(data);
+        browserHistory.push("/adds");
     }
 
     nameChange(event) {
