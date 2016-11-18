@@ -1,0 +1,31 @@
+import Axios from "axios";
+
+
+export function fetchCampaigns(){
+    return function(dispatch) {
+        Axios.get("http://localhost:3000/getCampaigns")
+            .then((response) => {
+                dispatch({type: "FETCH_CAMPAIGNS_FULFILLED", payload: response.data});
+            })
+            .catch((error) => {
+                dispatch({type: "FETCH_CAMPAIGNS_REJECTED", payload: error});
+            })
+    }
+}
+
+export function createCampaign(data){
+    return function(dispatch){
+        Axios.post("http://localhost:3000/addCampaign",{
+            name: data.name,
+            screens: data.screens,
+            screen_width: data.screenW,
+            screen_height: data.screenH
+        })
+            .then((response) => {
+                dispatch({type: "CREATE_CAMPAIGN_FULFILLED", payload: data});
+            })
+            .catch((error) => {
+                dispatch({type: "CREATE_CAMPAIGN_REJECTED", payload: error});
+            });
+    }
+}
