@@ -2,6 +2,7 @@ export default function reducer(state = {
     created: false,
     fetching: false,
     fetched: false,
+    deleted: false,
     error: null,
     campaigns: [],
     newCampaign: {}
@@ -37,6 +38,17 @@ export default function reducer(state = {
             return{...state,
                 created: false,
                 error: action.payload
+            }
+        }
+        case "DELETE_CAMPAIGN_FULFILLED": {
+            return{...state,
+                deleted: true    
+            }
+        }
+        case "DELETE_CAMPAIGN_REJECTED": {
+            return{...state,
+                deleted: false,
+                error: action.payload    
             }
         }
     }

@@ -29,3 +29,17 @@ export function createCampaign(data){
             });
     }
 }
+
+export function deleteCampaign(id){
+    return function(dispatch){
+        Axios.post("http://localhost:3000/deleteCampaign",{
+            id: id
+        })
+            .then((response) => {
+                dispatch({type: "DELETE_CAMPAIGN_FULFILLED"});
+            })
+            .catch((error) => {
+                dispatch({type: "DELETE_CAMPAIGN_REJECTED", payload: error});
+            });
+    }
+}
