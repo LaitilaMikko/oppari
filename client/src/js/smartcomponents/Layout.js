@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { fetchCampaigns, createCampaign, deleteCampaign } from "../actions/campaignActions";
+import { fetchCampaigns, createCampaign, deleteCampaign, showCurrentCampaignData } from "../actions/campaignActions";
 
 
 import AllCampaigns from "../dumbcomponents/allCampaigns";
@@ -28,12 +28,16 @@ export default class Layout extends React.Component {
         this.props.dispatch(deleteCampaign(id));
     }
 
+    showCurrentCampaignData(data){
+        this.props.dispatch(showCurrentCampaignData(data));
+    }
+
     render() {
         return (
             <div>
                 <Header title="FrontPage" location="FrontPage" />
-                <CreateCampaign createCampaign={this.createCampaign.bind(this)} />
-                <AllCampaigns campaigns={this.props.campaigns.campaigns} deleteCampaign={this.deleteCampaign.bind(this)}/>
+                <CreateCampaign current={this.props.campaigns.currSelection} createCampaign={this.createCampaign.bind(this)} />
+                <AllCampaigns curr={this.showCurrentCampaignData.bind(this)} campaigns={this.props.campaigns.campaigns} deleteCampaign={this.deleteCampaign.bind(this)}/>
             </div>
         );
     }

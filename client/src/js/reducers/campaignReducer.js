@@ -1,4 +1,5 @@
 export default function reducer(state = {
+    changed: false,
     created: false,
     fetching: false,
     fetched: false,
@@ -6,7 +7,8 @@ export default function reducer(state = {
     error: null,
     campaigns: [],
     newCampaign: {},
-    newCampaignID: null
+    newCampaignID: null,
+    currSelection: {}
 },action){
 
     switch(action.type){
@@ -50,6 +52,12 @@ export default function reducer(state = {
             return{...state,
                 deleted: false,
                 error: action.payload    
+            }
+        }
+        case "CAMPAIGN_SELECT_CHANGED": {
+            return{...state,
+                changed: true,
+                currSelection: action.payload    
             }
         }
     }

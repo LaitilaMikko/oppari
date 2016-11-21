@@ -44,3 +44,9 @@ export function deleteCampaign(id){
             });
     }
 }
+
+export function showCurrentCampaignData(data){
+    return function(dispatch){
+        dispatch({type:"CAMPAIGN_SELECT_CHANGED", payload: data});
+    }
+}

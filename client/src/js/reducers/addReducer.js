@@ -10,7 +10,7 @@ export default function reducer(state = {
 
     switch (action.type) {
 
-        case "FETCH_ADDS": {
+        case "FETCH_ADDS_PENDING": {
             return {...state,
                 fetching: true
             }
