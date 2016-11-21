@@ -1,5 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
 import Header from "../dumbcomponents/header";
+
+@connect((store) =>{
+    return {
+        adds: store.Adds
+    };
+})
+
 
 export default class Adds extends React.Component {
     render(){

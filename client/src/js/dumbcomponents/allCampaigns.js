@@ -27,7 +27,7 @@ export default class AllCampaigns extends React.Component {
         const campaigns = this.props.campaigns;
         const mappedCampaigns = campaigns.map((campaign,key) => <option key={key} value={campaign._id}>{campaign.name}</option>);
         return (
-            <div class="campaigns">
+            <div class="upper">
                 <h4>Campaigns:</h4>
                 <select id="campaignsList" onChange={this.handleChange.bind(this)}>
                     <option key="eka" value="null"></option>

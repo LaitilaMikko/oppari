@@ -40,7 +40,7 @@ export default class CreateCampaign extends React.Component {
     render() {
         return (
             <div>
-                <div class="create">
+                <div class="lower">
                     <h4>Create Campaign: </h4>
                     <form id="uploadForm">
                         <p><input onChange={this.nameChange.bind(this)} placeholder="Name" type="text" name="name"></input></p>

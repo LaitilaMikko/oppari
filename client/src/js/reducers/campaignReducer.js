@@ -5,12 +5,13 @@ export default function reducer(state = {
     deleted: false,
     error: null,
     campaigns: [],
-    newCampaign: {}
+    newCampaign: {},
+    newCampaignID: null
 },action){
 
     switch(action.type){
 
-        case "FETCH_CAMPAIGNS": {
+        case "FETCH_CAMPAIGNS_PENDING": {
             return {...state,
                 fetching: true    
             }

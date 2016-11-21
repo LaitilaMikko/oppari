@@ -1,0 +1,67 @@
+Etusivu:
+ - Luo Kampanja ->
+	Nimi
+	Screenien resoluutio W*H
+	Screenien määrä
+
+ - Poista Kampanja
+
+ - Valitse kampanja ja siirry seuraavalle sivulle
+
+ - Toggle nappula Kontrollerisivulle
+
+Tokasivu:
+ - Luo mainoksia
+	Nimi
+
+ - Järjestä mainokset toistamisjärjestykseen
+ - Aktivoi/Deaktivoi mainos
+
+ - Valitse mainos ja siirry seuraavalle sivulle
+
+Kolmassivu:
+ - Lisää medioita
+
+ - Valitse mediat screeneihin
+   (Anna käyttää ainoastaan medioita joissa kampanjaan sopiva resoluutio)
+   (Ohjelma osaa sovittaa median näyttöjen mukaan)
+   (On helppo havaita medioiden lopullinen sijoittuminen)
+
+ - Tarkista tiedot ja siirry viimeiseen vaiheeseen
+
+Neljässivu:
+ - Valitse kesto
+ - Valitse alku- ja loppuanimaatio
+ - Esikatsele
+ - Hyväksy
+
+
+------------
+Kontrollisivu:
+ - Play
+ - Stop
+ - Animaation laukaisu nappi? (Esim. Maalianimaatio)
+ - Toggle nappula Etusivulle
+------------
+
+Database:
+ - Kampanjat:
+   - Nimi
+   - Screenin resoluutio
+   - Näyttöjen määrä
+
+ - Mainokset:
+   - Nimi
+   - Kampanja
+   - Järjestysnumero
+   - Kesto
+   - Aktivoitu
+   - AlkuAnimaatio
+   - Loppuanimaatio
+   - Animaation Kesto? -ei pakollinen
+   - Mainoksien url (array?)
+   - Mainoksien positiot (array?)
+
+
+-Lisäksi ohjelma tarvitsee erillisen Playerin,
+ joka vastaanottaa kampanjoita ja muita käskyjä kontrolli -sivulta.

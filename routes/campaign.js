@@ -6,7 +6,6 @@ var Campaign = require("../Models/campaign");
 //Kampanjan lisääminen
 Router.post("/addCampaign", function (req, res) {
     Campaign.findOne({ name: req.body.name }, function (err, campaign) {
-        console.log(campaign);
         if (campaign == null) {
             var newCampaign = new Campaign({
                 name: req.body.name, 
@@ -29,6 +28,13 @@ Router.get("/getCampaigns",function(req,res){
     Campaign.find(function(err,oldCampaigns){
         if(err) console.error(err);
         return res.json(oldCampaigns);
+    });
+});
+
+Router.post("/getLatestID",function(req,res){
+    Campaign.find({name: req.body.name},function(err,newCampaign){
+        if(err) console.error(err);
+        return res.json(newCampaign[0]._id);
     });
 });
 

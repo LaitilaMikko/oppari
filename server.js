@@ -14,6 +14,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use(require("./routes/campaign"));
+app.use(require("./routes/add"));
 
 app.get("*", function(req,res){
     res.sendFile(path.resolve(__dirname,"client/public","index.html"));

@@ -3,6 +3,7 @@ import Axios from "axios";
 
 export function fetchCampaigns(){
     return function(dispatch) {
+        dispatch({type: "FETCH_CAMPAIGNS_PENDING"});
         Axios.get("http://localhost:3000/getCampaigns")
             .then((response) => {
                 dispatch({type: "FETCH_CAMPAIGNS_FULFILLED", payload: response.data});
