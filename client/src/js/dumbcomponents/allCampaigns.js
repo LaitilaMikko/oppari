@@ -1,5 +1,5 @@
 import React from "react";
-
+import { browserHistory } from "react-router";
 
 export default class AllCampaigns extends React.Component {
     constructor() {
@@ -32,6 +32,11 @@ export default class AllCampaigns extends React.Component {
             }
         }
     }
+    handleNext(){
+        var selection = document.getElementById("campaignsList");
+        this.findSelectedData(this.state.selectedValue);
+        browserHistory.push("/adds");
+    }
 
     render() {
         const campaigns = this.props.campaigns;
@@ -44,6 +49,7 @@ export default class AllCampaigns extends React.Component {
                     {mappedCampaigns}
                 </select>
                 <button onClick={this.handleDel.bind(this)}>DELETE</button>
+                <button onClick={this.handleNext.bind(this)}>NEXT</button>
             </div>
         );
     }

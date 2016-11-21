@@ -16,9 +16,9 @@ app.use(cors());
 app.use(require("./routes/campaign"));
 app.use(require("./routes/add"));
 
-app.get("*", function(req,res){
-    res.sendFile(path.resolve(__dirname,"client/public","index.html"));
-});
+/*app.get("*", function(req,res){
+    res.sendFile();
+});*/
 
 app.listen(3000, function () {
     console.log("Appi kuuntelee portista 3000!");

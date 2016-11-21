@@ -12,12 +12,14 @@ export default function reducer(state = {
 
         case "FETCH_ADDS_PENDING": {
             return {...state,
-                fetching: true
+                fetching: true,
+                fetched: false
             }
         }
         case "FETCH_ADDS_REJECTED": {
             return {...state,
                 fetching: false,
+                fetched: false,
                 error: action.payload
             }
         }
@@ -37,8 +39,8 @@ export default function reducer(state = {
             return {...state,
                 deleted: true
             }
-        }
-
+        };
     }
+    return state;
 
 }

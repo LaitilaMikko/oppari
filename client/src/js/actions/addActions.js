@@ -7,9 +7,8 @@ export function fetchAdds(campaign){
             campaign: campaign
         })
             .then((response) =>{
-                if(response == "success"){
                     dispatch({type: "FETCH_ADDS_FULFILLED", payload: response.data});
-                }
+                
             }).catch((error) => {
                 dispatch({type: "FETCH_ADDS_REJECTED", payload: error});
             });
