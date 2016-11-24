@@ -6,11 +6,17 @@ export function fetchAdds(campaign){
         axios.post("http://localhost:3000/getAdds",{
             campaign: campaign
         })
-            .then((response) =>{
+            .then((response) => {
                     dispatch({type: "FETCH_ADDS_FULFILLED", payload: response.data});
                 
             }).catch((error) => {
                 dispatch({type: "FETCH_ADDS_REJECTED", payload: error});
             });
+    }
+}
+
+export function currentAdd(data){
+    return function(dispatch){
+        dispatch({type: "ADD_SELECT_CHANGED", payload: data});       
     }
 }

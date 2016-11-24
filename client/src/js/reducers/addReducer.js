@@ -4,14 +4,16 @@ export default function reducer(state = {
     fetched: false,
     error: false,
     deleted: false,
+    selectChanged: false,
     adds: [],
-    newAdd: {}
+    currAdd: {}
 }, action) {
 
     switch (action.type) {
 
         case "FETCH_ADDS_PENDING": {
             return {...state,
+                selectChanged: false,
                 fetching: true,
                 fetched: false
             }
@@ -40,6 +42,13 @@ export default function reducer(state = {
                 deleted: true
             }
         };
+        case "ADD_SELECT_CHANGED": {
+            return{
+                ...state,
+                selectChanged: true,
+                currAdd: action.payload
+            }
+        }
     }
     return state;
 

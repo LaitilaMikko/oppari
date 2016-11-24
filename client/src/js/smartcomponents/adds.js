@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { fetchAdds } from "../actions/addActions";
+import { fetchAdds, currentAdd  } from "../actions/addActions";
 
 import Header from "../dumbcomponents/header";
 import AllAdds from "../dumbcomponents/allAdds";
+import EditAdd from "../dumbcomponents/EditAdd";
 
 @connect((store) => {
     return {
@@ -19,17 +20,19 @@ import AllAdds from "../dumbcomponents/allAdds";
 export default class Adds extends React.Component {
     componentWillMount() {
         this.props.dispatch(fetchAdds(this.props.campaign.currSelection.name));
-        if (this.props.adds.fetched == true){
-            console.log(this.props.adds.fetched);
-        }
+    }
+    currentAdd(data){
+        this.props.dispatch(currentAdd(data));
     }
 
     render() {
+        var addChanged = this.props.adds.selectChanged;
+        var currAdd = this.props.adds.currAdd;
         return (
             <div>
                 <Header title="Adds" location="FrontPage->Adds" />
-                <AllAdds campaign={this.props.currentCampaign.name} adds={this.props.adds} />
-
+                <AllAdds curr={this.currentAdd.bind(this)} campaign={this.props.currentCampaign.name} adds={this.props.adds} />
+                { addChanged && <EditAdd currAdd={currAdd}/>}
             </div>
         );
     }
