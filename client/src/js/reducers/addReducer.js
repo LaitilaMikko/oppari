@@ -1,10 +1,11 @@
 export default function reducer(state = {
+    startCreating: false,
     created: false,
     fetching: false,
     fetched: false,
     error: false,
     deleted: false,
-    selectChanged: false,
+    edit: false,
     adds: [],
     currAdd: {}
 }, action) {
@@ -13,7 +14,7 @@ export default function reducer(state = {
 
         case "FETCH_ADDS_PENDING": {
             return {...state,
-                selectChanged: false,
+                edit: false,
                 fetching: true,
                 fetched: false
             }
@@ -45,8 +46,17 @@ export default function reducer(state = {
         case "ADD_SELECT_CHANGED": {
             return{
                 ...state,
-                selectChanged: true,
-                currAdd: action.payload
+                edit: true,
+                currAdd: action.payload,
+                startCreating: false
+            }
+        }
+        case "CREATE_AD_START": {
+            return{
+                ...state,
+                startCreating: true,
+                edit: false,
+                currAdd: {}
             }
         }
     }

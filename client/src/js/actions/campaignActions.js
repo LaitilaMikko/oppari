@@ -50,3 +50,4 @@ export function showCurrentCampaignData(data){
         dispatch({type:"CAMPAIGN_SELECT_CHANGED", payload: data});
     }
 }
+

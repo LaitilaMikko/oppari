@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { fetchAdds, currentAdd  } from "../actions/addActions";
+import { fetchAdds, currentAdd, startCreatingAd  } from "../actions/addActions";
 
 import Header from "../dumbcomponents/header";
 import AllAdds from "../dumbcomponents/allAdds";
@@ -24,15 +24,20 @@ export default class Adds extends React.Component {
     currentAdd(data){
         this.props.dispatch(currentAdd(data));
     }
+    startCreatingAd(){
+        this.props.dispatch(startCreatingAd());
+    }
 
     render() {
-        var addChanged = this.props.adds.selectChanged;
+        var addChanged = this.props.adds.edit;
+        var createAdd = this.props.adds.startCreating;
         var currAdd = this.props.adds.currAdd;
         return (
             <div>
                 <Header title="Adds" location="FrontPage->Adds" />
-                <AllAdds curr={this.currentAdd.bind(this)} campaign={this.props.currentCampaign.name} adds={this.props.adds} />
-                { addChanged && <EditAdd currAdd={currAdd}/>}
+                <AllAdds startCreate={this.startCreatingAd.bind(this)} curr={this.currentAdd.bind(this)} campaign={this.props.currentCampaign.name} adds={this.props.adds} />
+                { addChanged && <EditAdd title={<h4>Edit ad {currAdd.name}</h4>} selectChange={this.props.adds.selectChanged} currAdd={currAdd}/>}
+                { createAdd && <EditAdd title={<h4>Create ad</h4>} /> }
             </div>
         );
     }
