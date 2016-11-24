@@ -6,7 +6,9 @@ export default function reducer(state = {
     error: false,
     deleted: false,
     edit: false,
+    creating: false,
     adds: [],
+    newAdd: {},
     currAdd: {}
 }, action) {
 
@@ -57,6 +59,29 @@ export default function reducer(state = {
                 startCreating: true,
                 edit: false,
                 currAdd: {}
+            }
+        }
+        case "CREATE_AD_PENDING": {
+            return{
+                ...state,
+                creating: true,
+                created: false
+            }
+        }
+        case "CREATE_AD_FULFILLED": {
+            return{
+                ...state,
+                created: true,
+                creating: false,
+                currAdd: action.payload
+            }
+        }
+        case "CREATE_AD_REJECTED": {
+            return{
+                ...state,
+                created: false,
+                creating: false,
+                error: action.payload
             }
         }
     }

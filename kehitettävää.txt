@@ -1,1 +1,2 @@
 - Kampanjan editointi etusivulla. Valitun kampanjan tiedot inputteihin. Buttonin kanssa ongelmaaa !
+- Adds-sivulla kun valitaan mainos -> ei tule ekalla valinnalla inputteihin vanhat tiedot vaan vasta toisella valinnalla (?)

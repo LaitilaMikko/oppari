@@ -3,8 +3,12 @@ import Serialize from "form-serialize";
 export default class editAdd extends React.Component {
 
 
-    componentDidUpdate(){
-        if(this.props.currAdd != {}){
+    componentDidUpdate() {
+        if(this.props.currAdd == {}){
+            console.log("tyhjä");
+        }else{console.log("tavaraa");}
+
+        if (this.props.currAdd.name != undefined) {
             var add = this.props.currAdd;
             document.getElementById("name").value = add.name;
             document.getElementById("duration").value = add.duration;
@@ -14,15 +18,16 @@ export default class editAdd extends React.Component {
         }
     }
 
-    handleClick(e){
+    handleClick(e) {
         e.preventDefault();
         var form = document.getElementById("edit");
         var data = Serialize(form, { hash: true });
         data.isActivated = document.getElementById("activated").checked;
-        if (this.props.selectChange == true){
-            //päivitetään
-        }else{
-            //luodaan uusi
+        data.campaign = this.props.currCamp;
+        if (this.props.editing == true) {
+            console.log("editing");
+        } else if (this.props.creating == true) {
+            this.props.createAd(data);
         }
     }
 
@@ -48,7 +53,7 @@ export default class editAdd extends React.Component {
                         </select>
                         <a>  Animation example</a>
                     </p>
-                    <p><input name="submit" type="submit" defaultValue="SAVE" onClick={this.handleClick.bind(this)}/></p>
+                    <p><input name="submit" type="submit" defaultValue="SAVE" onClick={this.handleClick.bind(this)} /></p>
                 </form>
             </div>
         );
