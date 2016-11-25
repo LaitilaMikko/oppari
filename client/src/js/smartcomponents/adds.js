@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { fetchAdds, currentAdd, startCreatingAd, createAd  } from "../actions/addActions";
+import { deleteAdd, fetchAdds, currentAdd, startCreatingAd, createAd, leftPage  } from "../actions/addActions";
 
 import Header from "../dumbcomponents/header";
 import AllAdds from "../dumbcomponents/allAdds";
@@ -21,6 +21,12 @@ export default class Adds extends React.Component {
     componentWillMount() {
         this.props.dispatch(fetchAdds(this.props.campaign.currSelection.name));
     }
+    componentDidUpdate() {
+        if(this.props.adds.deleted == true){
+            this.props.dispatch(fetchAdds(this.props.campaign.currSelection.name));
+        }
+    }
+
     currentAdd(data){
         this.props.dispatch(currentAdd(data));
     }
@@ -29,6 +35,12 @@ export default class Adds extends React.Component {
     }
     createAd(data){
         this.props.dispatch(createAd(data));
+    }
+    leftPage(){
+        this.props.dispatch(leftPage());
+    }
+    deleteAdd(id){    
+        this.props.dispatch(deleteAdd(id));
     }
 
     render() {
@@ -39,9 +51,9 @@ export default class Adds extends React.Component {
         return (
             <div>
                 <Header title="Adds" location="FrontPage->Adds" />
-                <AllAdds startCreate={this.startCreatingAd.bind(this)} curr={this.currentAdd.bind(this)} campaign={this.props.currentCampaign.name} adds={this.props.adds} />
-                { addChanged && <EditAdd editing={this.props.adds.edit} title={<h4>Edit ad {currAdd.name}</h4>} selectChange={this.props.adds.selectChanged} currAdd={currAdd}/>}
-                { createAdd && <EditAdd currCamp={currCampName} createAd={this.createAd.bind(this)} creating={this.props.adds.startCreating} title={<h4>Create ad</h4>} /> }
+                <AllAdds deleteAdd={this.deleteAdd.bind(this)} startCreate={this.startCreatingAd.bind(this)} curr={this.currentAdd.bind(this)} campaign={this.props.currentCampaign.name} adds={this.props.adds} />
+                { addChanged && <EditAdd leftPage={this.leftPage.bind(this)} adds={this.props.adds} editing={this.props.adds.edit} title={<h4>Edit ad {currAdd.name}</h4>} selectChange={this.props.adds.selectChanged} currAdd={currAdd}/>}
+                { createAdd && <EditAdd leftPage={this.leftPage.bind(this)} adds={this.props.adds} currCamp={currCampName} createAd={this.createAd.bind(this)} creating={this.props.adds.startCreating} title={<h4>Create ad</h4>} /> }
             </div>
         );
     }

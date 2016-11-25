@@ -5,6 +5,7 @@ export default function reducer(state = {
     fetched: false,
     error: false,
     deleted: false,
+    deleting: false,
     edit: false,
     creating: false,
     adds: [],
@@ -14,11 +15,20 @@ export default function reducer(state = {
 
     switch (action.type) {
 
+        case "ADS_LOCATION_DID_CHANGE": {
+            return {
+                ...state,
+                startCreating: false,
+                edit: false
+            }
+        }
+
         case "FETCH_ADDS_PENDING": {
             return {...state,
                 edit: false,
                 fetching: true,
-                fetched: false
+                fetched: false,
+                deleted: false
             }
         }
         case "FETCH_ADDS_REJECTED": {
@@ -32,17 +42,29 @@ export default function reducer(state = {
             return {...state,
                 fetching: false,
                 fetched: true,
-                adds: action.payload    
+                adds: action.payload,
+                currAdd: {}    
+            }
+        }
+        case "DELETE_ADD_PENDING": {
+            return {
+                ...state,
+                deleting: true
             }
         }
         case "DELETE_ADD_REJECTED": {
             return {...state,
-                error: action.payload
+                error: action.payload,
+                deleting: false,
+                deleted: false
             }
         }
         case "DELETE_ADD_FULFILLED": {
             return {...state,
-                deleted: true
+                deleted: true,
+                deleting: false,
+                edit: false,
+                startCreating: false             
             }
         };
         case "ADD_SELECT_CHANGED": {
@@ -57,8 +79,7 @@ export default function reducer(state = {
             return{
                 ...state,
                 startCreating: true,
-                edit: false,
-                currAdd: {}
+                edit: false
             }
         }
         case "CREATE_AD_PENDING": {
@@ -71,9 +92,12 @@ export default function reducer(state = {
         case "CREATE_AD_FULFILLED": {
             return{
                 ...state,
+                startCreating: false,
                 created: true,
                 creating: false,
-                currAdd: action.payload
+                adds: [
+                    ...state.adds, action.payload
+                ]
             }
         }
         case "CREATE_AD_REJECTED": {
@@ -84,6 +108,7 @@ export default function reducer(state = {
                 error: action.payload
             }
         }
+
     }
     return state;
 

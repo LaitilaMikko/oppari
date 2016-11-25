@@ -34,7 +34,8 @@ export default function reducer(state = {
         case "CREATE_CAMPAIGN_FULFILLED": {
             return {...state,
                 created: true,
-                currSelection: action.payload
+                currSelection: action.payload,
+                campaigns: [...state.campaigns, action.payload]
             }
         }
         case "CREATE_CAMPAIGN_REJECTED": {

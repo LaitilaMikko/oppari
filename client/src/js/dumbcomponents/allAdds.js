@@ -19,7 +19,8 @@ export default class AllAdds extends React.Component {
         this.props.startCreate();
     }
     handleDelete() {
-
+        var add = this.props.adds.currAdd;
+        this.props.deleteAdd(add._id);
     }
 
 
@@ -30,7 +31,7 @@ export default class AllAdds extends React.Component {
             return (
                 <div class="upper">
                     <h4>Adds for campaign "{this.props.campaign}"</h4>
-                    <select onChange={this.handleChange.bind(this)} size="6">
+                    <select id="adds" onChange={this.handleChange.bind(this)} size="6">
                         {mappedAdds}
                     </select>
                     <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
@@ -42,7 +43,7 @@ export default class AllAdds extends React.Component {
             return (
                 <div class="upper">
                     <h4>Adds for campaign "{this.props.campaign}"</h4>
-                    <select size="6">
+                    <select id="adds" size="6">
                         <option key="eka" value="null"></option>
                     </select>
                     <button onClick={this.handleCreate.bind(this)}>NEW AD</button>

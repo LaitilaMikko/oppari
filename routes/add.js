@@ -2,6 +2,7 @@ var express = require("express");
 var mongoose = require("mongoose");
 var Router = express.Router();
 var Add = require("../Models/add");
+var _ = require("underscore");
 
 
 Router.post("/addAd", function (req, res) {
@@ -16,14 +17,31 @@ Router.post("/addAd", function (req, res) {
     });
     newAdd.save(function (err, createdAdd) {
         if (err) { console.error(err); }
-        res.json("success");
+        res.json(createdAdd);
     });
 });
 
 Router.post("/getAdds", function (req, res) {
     Add.find({ campaign: req.body.campaign }, function (err, adds) {
-        console.log(adds);
         res.json(adds);
+    });
+});
+
+Router.post("/deleteAdd",function(req,res){
+    Add.findOne({_id:req.body.id},function(err, deleteAdd) {
+         if(err){console.error(err);}
+        /*Add.find({campaign: req.body.campaign}, function(err,adds){
+            var addArray = adds;
+            _.each((addArray),function(value,index){
+                if (value._id == req.body.id){
+                    console.log(index);
+                }
+            });
+
+            
+        });*/
+        deleteAdd.remove();
+        res.json("success");
     });
 });
 
