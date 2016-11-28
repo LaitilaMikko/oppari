@@ -18,15 +18,15 @@ export default class AllAdds extends React.Component {
     handleCreate() {
         this.props.startCreate();
     }
+
     handleDelete() {
         var add = this.props.adds.currAdd;
         this.props.deleteAdd(add._id);
     }
 
-
     render() {
         const adds = this.props.adds.adds;
-        const mappedAdds = adds.map((add, key) => <option key={key} value={add._id}>{add.name}"#{add.orderNum}"</option>)
+        const mappedAdds = adds.map((add, key) => <option key={key} value={add._id}>{add.name}  #{add.orderNum}</option>)
         if (adds.length > 0) {
             return (
                 <div class="upper">

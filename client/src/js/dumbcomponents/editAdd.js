@@ -3,16 +3,21 @@ import Serialize from "form-serialize";
 import { browserHistory } from "react-router";
 export default class editAdd extends React.Component {
 
-    componentDidMount(){
+    componentDidMount() {
         var location = window.location;
         browserHistory.listen(location => {
-            if (location.pathname !== "/adds" || location.path != undefined){
+            if (location.pathname !== "/adds" || location.path != undefined) {
                 this.props.leftPage();
             }
-        })
+        });
+        this.fillInputs();
     }
 
     componentDidUpdate() {
+        this.fillInputs();
+    }
+
+    fillInputs() {
         if (this.props.editing == true) {
             var add = this.props.currAdd;
             document.getElementById("name").value = add.name;
@@ -29,7 +34,7 @@ export default class editAdd extends React.Component {
         var data = Serialize(form, { hash: true });
         data.isActivated = document.getElementById("activated").checked;
         data.campaign = this.props.currCamp;
-        data.orderNum = this.props.adds.adds.length+1;
+        data.orderNum = this.props.adds.adds.length + 1;
         if (this.props.editing == true) {
             console.log("editing");
         } else if (this.props.creating == true) {

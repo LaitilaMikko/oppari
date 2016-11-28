@@ -14,7 +14,6 @@ export default function reducer(state = {
 }, action) {
 
     switch (action.type) {
-
         case "ADS_LOCATION_DID_CHANGE": {
             return {
                 ...state,
@@ -22,10 +21,8 @@ export default function reducer(state = {
                 edit: false
             }
         }
-
         case "FETCH_ADDS_PENDING": {
             return {...state,
-                edit: false,
                 fetching: true,
                 fetched: false,
                 deleted: false
