@@ -34,9 +34,9 @@ export default class editAdd extends React.Component {
         var data = Serialize(form, { hash: true });
         data.isActivated = document.getElementById("activated").checked;
         data.campaign = this.props.currCamp;
-        data.orderNum = this.props.adds.adds.length + 1;
+        //data.orderNum = this.props.adds.adds.length + 1;
         if (this.props.editing == true) {
-            console.log("editing");
+            this.props.editAdd(this.props.currAdd._id, data);
         } else if (this.props.creating == true) {
             this.props.createAd(data);
         }

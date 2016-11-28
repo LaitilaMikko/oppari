@@ -8,6 +8,8 @@ export default function reducer(state = {
     deleting: false,
     edit: false,
     creating: false,
+    editing: false,
+    edited: false,
     adds: [],
     newAdd: {},
     currAdd: {}
@@ -22,21 +24,25 @@ export default function reducer(state = {
             }
         }
         case "FETCH_ADDS_PENDING": {
-            return {...state,
+            return {
+                ...state,
                 fetching: true,
                 fetched: false,
-                deleted: false
+                deleted: false,
+                edited: false
             }
         }
         case "FETCH_ADDS_REJECTED": {
-            return {...state,
+            return {
+                ...state,
                 fetching: false,
                 fetched: false,
                 error: action.payload
             }
         }
         case "FETCH_ADDS_FULFILLED": {
-            return {...state,
+            return {
+                ...state,
                 fetching: false,
                 fetched: true,
                 adds: action.payload,
@@ -50,14 +56,16 @@ export default function reducer(state = {
             }
         }
         case "DELETE_ADD_REJECTED": {
-            return {...state,
+            return {
+                ...state,
                 error: action.payload,
                 deleting: false,
                 deleted: false
             }
         }
         case "DELETE_ADD_FULFILLED": {
-            return {...state,
+            return {
+                ...state,
                 deleted: true,
                 deleting: false,
                 edit: false,
@@ -103,6 +111,29 @@ export default function reducer(state = {
                 created: false,
                 creating: false,
                 error: action.payload
+            }
+        }
+        case "EDIT_AD_PENDING": {
+            return{
+                ...state,
+                editing: true,
+                edited: false
+            }
+        }
+        case "EDIT_AD_REJECTED": {
+            return{
+                ...state,
+                editing: false,
+                edited: false,
+                error: action.payload
+            }
+        }
+        case "EDIT_AD_FULFILLED": {
+            return{
+                ...state,
+                editing: false,
+                edited: true,  
+                edit: false
             }
         }
 

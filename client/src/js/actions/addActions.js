@@ -69,3 +69,24 @@ export function deleteAdd(id, campaign){
             })
     }       
 }
+
+export function editAdd(id,data){
+    return function(dispatch){
+        dispatch({type: "EDIT_AD_PENDING"});
+        axios.post("http://localhost:3000/updateAdd", {
+            id: id,
+            activated: data.isActivated,
+            campaign: data.campaign,
+            duration: data.duration,
+            name: data.name,
+            animationIN: data.animationIN,
+            animationOut: data.animationOUT,
+        })
+            .then((response) => {
+                dispatch({type: "EDIT_AD_FULFILLED", payload: response});
+            })
+            .catch ((error) => {
+                dispatch({type: "EDIT_AD_REJECTED", payload: error});
+            })
+    }
+}
