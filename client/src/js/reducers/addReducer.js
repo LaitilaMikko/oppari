@@ -73,7 +73,7 @@ export default function reducer(state = {
             }
         };
         case "ADD_SELECT_CHANGED": {
-            return{
+            return {
                 ...state,
                 edit: true,
                 currAdd: action.payload,
@@ -81,21 +81,21 @@ export default function reducer(state = {
             }
         }
         case "CREATE_AD_START": {
-            return{
+            return {
                 ...state,
                 startCreating: true,
                 edit: false
             }
         }
         case "CREATE_AD_PENDING": {
-            return{
+            return {
                 ...state,
                 creating: true,
                 created: false
             }
         }
         case "CREATE_AD_FULFILLED": {
-            return{
+            return {
                 ...state,
                 startCreating: false,
                 created: true,
@@ -106,7 +106,7 @@ export default function reducer(state = {
             }
         }
         case "CREATE_AD_REJECTED": {
-            return{
+            return {
                 ...state,
                 created: false,
                 creating: false,
@@ -114,14 +114,14 @@ export default function reducer(state = {
             }
         }
         case "EDIT_AD_PENDING": {
-            return{
+            return {
                 ...state,
                 editing: true,
                 edited: false
             }
         }
         case "EDIT_AD_REJECTED": {
-            return{
+            return {
                 ...state,
                 editing: false,
                 edited: false,
@@ -129,11 +129,17 @@ export default function reducer(state = {
             }
         }
         case "EDIT_AD_FULFILLED": {
-            return{
+            return {
                 ...state,
                 editing: false,
                 edited: true,  
                 edit: false
+            }
+        }
+        case "AD_ORDER_CHANGED": {
+            return {
+                ...state,
+                adds: action.payload
             }
         }
 

@@ -1,8 +1,16 @@
 import React from "react";
 
 export default class AllAdds extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            selectedIndex: null
+        }
+    }
 
     handleChange(e) {
+        var index = e.nativeEvent.target.selectedIndex;
+        this.setState({selectedIndex: index});
         this.findSelectedAdd(e.target.value);
     }
 
@@ -23,19 +31,63 @@ export default class AllAdds extends React.Component {
         var add = this.props.adds.currAdd;
         this.props.deleteAdd(add._id);
     }
+    
+    handleUp() {
+        var index = this.state.selectedIndex;
+        this.handleOrder("up", index);
+    }
+
+    handleDown() {
+        var index = this.state.selectedIndex;
+        this.handleOrder("down", index);
+    }
+
+    handleOrder(action, index) {
+        if (action == "up"){
+            var adds = this.props.adds.adds;
+            var current = this.props.adds.adds[index];
+            var prev = this.props.adds.adds[index - 1];          
+            if(index > 0) {
+                adds[index] = prev;
+                adds[index-1] = current;
+                this.props.changeOrder(adds);
+            }
+        }else if (action == "down") {
+            var adds = this.props.adds.adds;
+            var current = this.props.adds.adds[index];
+            var next = this.props.adds.adds[index + 1];
+            if((index+1) != this.props.adds.adds.length) {
+                adds[index] = next;
+                adds[index + 1] = current;
+                this.props.changeOrder(adds);
+            }
+        }
+    }
+
+    saveOrder(){
+        console.log(this.props.adds.adds);
+    }
 
     render() {
         const adds = this.props.adds.adds;
-        const mappedAdds = adds.map((add, key) => <option key={key} value={add._id}>{add.name}  #{add.orderNum}</option>)
+        const mappedAdds = adds.map((add, key) => <option key={key} value={add._id}>{add.name} #{key + 1}</option>)
         if (adds.length > 0) {
             return (
                 <div class="upper">
                     <h4>Adds for campaign "{this.props.campaign}"</h4>
-                    <select id="adds" onChange={this.handleChange.bind(this)} size="6">
-                        {mappedAdds}
-                    </select>
+                    <div class="selectHolder">
+                        <select id="adds" onChange={this.handleChange.bind(this)} size="6">
+                            {mappedAdds}
+                        </select>
+                        <div class="arrows">
+                            <p onClick={this.handleUp.bind(this)}>&#x21E7;</p>
+                            <p onClick={this.handleDown.bind(this)}>&#x21E9;</p>
+                        </div>
+                    </div>
+                    <br/>
                     <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
                     <button onClick={this.handleDelete.bind(this)}>DELETE</button>
+                    <button onClick={this.saveOrder.bind(this)}>SAVE ORDER</button>
                 </div>
             );
         }
@@ -46,6 +98,7 @@ export default class AllAdds extends React.Component {
                     <select id="adds" size="6">
                         <option key="eka" value="null"></option>
                     </select>
+                    <br />
                     <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
                     <button onClick={this.handleDelete.bind(this)}>DELETE</button>
                 </div>

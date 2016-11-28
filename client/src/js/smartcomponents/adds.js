@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { editAdd, deleteAdd, fetchAdds, currentAdd, startCreatingAd, createAd, leftPage  } from "../actions/addActions";
+import { changeOrder, editAdd, deleteAdd, fetchAdds, currentAdd, startCreatingAd, createAd, leftPage  } from "../actions/addActions";
 
 import Header from "../dumbcomponents/header";
 import AllAdds from "../dumbcomponents/allAdds";
@@ -45,6 +45,9 @@ export default class Adds extends React.Component {
     editAdd(id,data){
         this.props.dispatch(editAdd(id,data));
     }
+    changeOrder(adds){
+        this.props.dispatch(changeOrder(adds));
+    }
 
     render() {
         var addChanged = this.props.adds.edit;
@@ -54,7 +57,7 @@ export default class Adds extends React.Component {
         return (
             <div>
                 <Header title="Adds" location="FrontPage->Adds" />
-                <AllAdds deleteAdd={this.deleteAdd.bind(this)} startCreate={this.startCreatingAd.bind(this)} curr={this.currentAdd.bind(this)} campaign={this.props.currentCampaign.name} adds={this.props.adds} />
+                <AllAdds changeOrder={this.changeOrder.bind(this)} deleteAdd={this.deleteAdd.bind(this)} startCreate={this.startCreatingAd.bind(this)} curr={this.currentAdd.bind(this)} campaign={this.props.currentCampaign.name} adds={this.props.adds} />
                 { addChanged && <EditAdd  currCamp={currCampName} editAdd={this.editAdd.bind(this)} leftPage={this.leftPage.bind(this)} adds={this.props.adds} editing={this.props.adds.edit} title={<h4>Edit ad {currAdd.name}</h4>} selectChange={this.props.adds.selectChanged} currAdd={currAdd}/>}
                 { createAdd && <EditAdd leftPage={this.leftPage.bind(this)} adds={this.props.adds} currCamp={currCampName} createAd={this.createAd.bind(this)} creating={this.props.adds.startCreating} title={<h4>Create ad</h4>} /> }
             </div>

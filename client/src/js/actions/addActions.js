@@ -90,3 +90,9 @@ export function editAdd(id,data){
             })
     }
 }
+
+export function changeOrder(adds){
+    return function(dispatch){
+        dispatch({type:"AD_ORDER_CHANGED", payload: adds});
+    }
+}
