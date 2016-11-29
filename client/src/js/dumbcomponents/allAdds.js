@@ -1,7 +1,7 @@
 import React from "react";
 
 export default class AllAdds extends React.Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             selectedIndex: null
@@ -10,7 +10,7 @@ export default class AllAdds extends React.Component {
 
     handleChange(e) {
         var index = e.nativeEvent.target.selectedIndex;
-        this.setState({selectedIndex: index});
+        this.setState({ selectedIndex: index });
         this.findSelectedAdd(e.target.value);
     }
 
@@ -31,46 +31,46 @@ export default class AllAdds extends React.Component {
         var add = this.props.adds.currAdd;
         this.props.deleteAdd(add._id);
     }
-    
+
     handleUp() {
         var index = this.state.selectedIndex;
-        this.handleOrder("up", index);
+        this.handleOrder("Up", index);
     }
 
     handleDown() {
         var index = this.state.selectedIndex;
-        this.handleOrder("down", index);
+        this.handleOrder("Down", index);
     }
 
     handleOrder(action, index) {
-        if (action == "up"){
-            var adds = this.props.adds.adds;
-            var current = this.props.adds.adds[index];
-            var prev = this.props.adds.adds[index - 1];          
-            if(index > 0) {
-                adds[index] = prev;
-                adds[index-1] = current;
-                this.props.changeOrder(adds);
+        if (action == "Up") {
+            if (index > 0) {
+                var adds = this.props.adds.adds;
+                var curr = this.props.adds.adds[index]._id;
+                var next = this.props.adds.adds[index - 1]._id;
+                var currAddOrder;
+                var nextAddOrder;
+                currAddOrder = index;
+                nextAddOrder = index + 1;
+                this.props.changeOrder(curr, next, action, currAddOrder, nextAddOrder);
             }
-        }else if (action == "down") {
-            var adds = this.props.adds.adds;
-            var current = this.props.adds.adds[index];
-            var next = this.props.adds.adds[index + 1];
-            if((index+1) != this.props.adds.adds.length) {
-                adds[index] = next;
-                adds[index + 1] = current;
-                this.props.changeOrder(adds);
+        } else if (action == "Down") {
+            if ((index + 1) < this.props.adds.adds.length) {
+                var adds = this.props.adds.adds;
+                var curr = this.props.adds.adds[index]._id;
+                var prev = this.props.adds.adds[index + 1]._id;
+                var currAddOrder;
+                var prevAddOrder;
+                prevAddOrder = index + 1;
+                currAddOrder = index + 2;
+                this.props.changeOrder(curr, prev, action, currAddOrder, prevAddOrder);
             }
         }
     }
 
-    saveOrder(){
-        console.log(this.props.adds.adds);
-    }
-
     render() {
         const adds = this.props.adds.adds;
-        const mappedAdds = adds.map((add, key) => <option key={key} value={add._id}>{add.name} #{key + 1}</option>)
+        const mappedAdds = adds.map((add) => <option key={add.orderNum} value={add._id}>{add.name}#{add.orderNum}</option>)
         if (adds.length > 0) {
             return (
                 <div class="upper">
@@ -84,10 +84,9 @@ export default class AllAdds extends React.Component {
                             <p onClick={this.handleDown.bind(this)}>&#x21E9;</p>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
-                    <button onClick={this.handleDelete.bind(this)}>DELETE</button>
-                    <button onClick={this.saveOrder.bind(this)}>SAVE ORDER</button>
+                    <button disabled={!this.props.adds.edit} onClick={this.handleDelete.bind(this)}>DELETE</button>
                 </div>
             );
         }

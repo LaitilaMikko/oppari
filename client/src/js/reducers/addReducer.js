@@ -10,6 +10,7 @@ export default function reducer(state = {
     creating: false,
     editing: false,
     edited: false,
+    arrows: false,
     adds: [],
     newAdd: {},
     currAdd: {}
@@ -77,7 +78,8 @@ export default function reducer(state = {
                 ...state,
                 edit: true,
                 currAdd: action.payload,
-                startCreating: false
+                startCreating: false,
+                edited: false
             }
         }
         case "CREATE_AD_START": {
@@ -140,6 +142,28 @@ export default function reducer(state = {
             return {
                 ...state,
                 adds: action.payload
+            }
+        }
+        case "AD_ORDER_CHANGE_PENDING": {
+            return {
+                ...state,
+                arrows: true, 
+                edit: false,
+                creating: false          
+            }
+        }
+        case "AD_ORDER_CHANGE_FULFILLED": {
+            return {
+                ...state,
+                arrows: false,
+                edited: true
+            }
+        }
+        case "AD_ORDER_CHANGE_REJECTED": {
+            return {
+                ...state,
+                arrows: true,
+                error: action.payload
             }
         }
 
