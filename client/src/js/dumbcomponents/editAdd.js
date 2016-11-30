@@ -4,12 +4,6 @@ import { browserHistory } from "react-router";
 export default class editAdd extends React.Component {
 
     componentDidMount() {
-        var location = window.location;
-        browserHistory.listen(location => {
-            if (location.pathname !== "/adds" || location.path != undefined) {
-                this.props.leftPage();
-            }
-        });
         this.fillInputs();
     }
 

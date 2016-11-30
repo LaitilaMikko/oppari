@@ -28,7 +28,9 @@ export default function reducer(state = {
             return {...state,
                 fetching: false,
                 fetched: true,
-                campaigns: action.payload
+                campaigns: action.payload,
+                changed: false,
+                created: false
             }
         }
         case "CREATE_CAMPAIGN_FULFILLED": {

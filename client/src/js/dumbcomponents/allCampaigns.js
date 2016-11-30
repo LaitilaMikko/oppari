@@ -14,7 +14,7 @@ export default class AllCampaigns extends React.Component {
     handleDel() {
         var select = document.getElementById("campaignsList");
         if (this.state.selectedValue != null) {
-            this.props.deleteCampaign(this.state.selectedValue);
+            this.props.deleteCampaign(this.state.selectedValue,this.props.current.name);
             select.remove(this.state.selectedIndex);
         }
     }

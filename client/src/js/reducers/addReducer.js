@@ -21,7 +21,8 @@ export default function reducer(state = {
             return {
                 ...state,
                 startCreating: false,
-                edit: false
+                edit: false,
+                adds: []
             }
         }
         case "FETCH_ADDS_PENDING": {

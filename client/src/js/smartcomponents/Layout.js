@@ -24,8 +24,8 @@ export default class Layout extends React.Component {
         this.props.dispatch(createCampaign(data));
     }
     
-    deleteCampaign(id){
-        this.props.dispatch(deleteCampaign(id));
+    deleteCampaign(id,campaign){
+        this.props.dispatch(deleteCampaign(id,campaign));
     }
 
     showCurrentCampaignData(data){
@@ -37,7 +37,7 @@ export default class Layout extends React.Component {
             <div>
                 <Header title="FrontPage" location="FrontPage" />
                 <CreateCampaign current={this.props.campaigns.currSelection} createCampaign={this.createCampaign.bind(this)} />
-                <AllCampaigns curr={this.showCurrentCampaignData.bind(this)} campaigns={this.props.campaigns.campaigns} deleteCampaign={this.deleteCampaign.bind(this)}/>
+                <AllCampaigns current={this.props.campaigns.currSelection} curr={this.showCurrentCampaignData.bind(this)} campaigns={this.props.campaigns.campaigns} deleteCampaign={this.deleteCampaign.bind(this)}/>
             </div>
         );
     }

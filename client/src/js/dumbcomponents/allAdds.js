@@ -7,7 +7,7 @@ export default class AllAdds extends React.Component {
             selectedIndex: null
         }
     }
-
+    
     handleChange(e) {
         var index = e.nativeEvent.target.selectedIndex;
         this.setState({ selectedIndex: index });

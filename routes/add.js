@@ -31,14 +31,6 @@ Router.post("/deleteAdd", function (req, res) {
     Add.findOne({ _id: req.body.id }, function (err, deleteAdd) {
         console.log("ID: " + req.body.id + ", Deleting: " + deleteAdd);
         if (err) { console.error(err); }
-        /*Add.find({campaign: req.body.campaign}, function(err,adds){
-            var addArray = adds;
-            _.each((addArray),function(value,index){
-                if (value._id == req.body.id){
-                    console.log(index);
-                }
-            });           
-        });*/
         deleteAdd.remove();
         res.json("success");
     });
@@ -95,5 +87,6 @@ Router.post("/addOrderUpOrDown", function (req, res) {
     )
     res.json("success");
 });
+
 
 module.exports = Router;
