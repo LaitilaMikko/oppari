@@ -29,12 +29,34 @@ Router.post("/getAdds", function (req, res) {
 
 Router.post("/deleteAdd", function (req, res) {
     Add.findOne({ _id: req.body.id }, function (err, deleteAdd) {
-        console.log("ID: " + req.body.id + ", Deleting: " + deleteAdd);
         if (err) { console.error(err); }
         deleteAdd.remove();
-        res.json("success");
+        res.json(deleteAdd);
     });
 });
+
+Router.post("/addOrderNumsAfterDel", function (req, res) {
+    Add.find({ campaign: req.body.campaign }, function (err, adds) {
+        _.each(adds, function (ad) {
+            if (ad.orderNum > req.body.orderNum) {
+                var newOrder = ad.orderNum - 1;
+                updateOrders(ad._id,newOrder);
+            }
+        });
+    })
+    res.json("success");
+})
+
+function updateOrders(id,orderNum) {
+    Add.update(
+        { _id: id },
+        {
+            $set: { orderNum: orderNum }
+        }, function(err,result){
+            if(err){console.error(err);}
+        }
+    )
+}
 
 Router.post("/updateAdd", function (req, res) {
     Add.update(

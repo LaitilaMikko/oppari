@@ -58,15 +58,20 @@ export function leftPage() {
     }
 }
 
-export function deleteAdd(id, campaign) {
+export function deleteAdd(id) {
     return function (dispatch) {
         dispatch({ type: "DELETE_ADD_PENDING" });
         axios.post("http://localhost:3000/deleteAdd", {
-            id: id,
-            campaign: campaign
+            id: id          
         })
             .then((response) => {
-                dispatch({ type: "DELETE_ADD_FULFILLED", payload: response.data });
+                axios.post("http://localhost:3000/addOrderNumsAfterDel",{
+                    campaign: response.data.campaign,
+                    orderNum: response.data.orderNum
+                })
+                .then((response) => {
+                    dispatch({ type: "DELETE_ADD_FULFILLED", payload: response.data });
+                });
             })
             .catch((error) => {
                 dispatch({ type: "DELETE_ADD_REJECTED", payload: error });
