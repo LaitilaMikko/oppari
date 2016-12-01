@@ -40,6 +40,12 @@ export default function reducer(state = {
                 campaigns: [...state.campaigns, action.payload]
             }
         }
+        case "CREATE_CAMPAIGN_PENDING": {
+            return {
+                ...state,
+                changed: false             
+            }
+        }
         case "CREATE_CAMPAIGN_REJECTED": {
             return{...state,
                 created: false,

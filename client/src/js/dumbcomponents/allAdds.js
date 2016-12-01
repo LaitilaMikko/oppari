@@ -1,4 +1,5 @@
 import React from "react";
+import { browserHistory } from "react-router";
 
 export default class AllAdds extends React.Component {
     constructor() {
@@ -7,8 +8,11 @@ export default class AllAdds extends React.Component {
             selectedIndex: null
         }
     }
+
+
     
     handleChange(e) {
+        
         var index = e.nativeEvent.target.selectedIndex;
         this.setState({ selectedIndex: index });
         this.findSelectedAdd(e.target.value);
@@ -40,6 +44,10 @@ export default class AllAdds extends React.Component {
     handleDown() {
         var index = this.state.selectedIndex;
         this.handleOrder("Down", index);
+    }
+
+    handleMedias(){
+        browserHistory.push("/medias");
     }
 
     handleOrder(action, index) {
@@ -77,7 +85,6 @@ export default class AllAdds extends React.Component {
                     <h4>Ads for campaign "{this.props.campaign}"</h4>
                     <div class="selectHolder">
                         <select id="adds" onChange={this.handleChange.bind(this)} size="6">
-                            <option class="firstOption" key={"first"} value={null}>ADS</option>
                             {mappedAdds}
                         </select>
                         <div class="arrows">
@@ -88,6 +95,7 @@ export default class AllAdds extends React.Component {
                     <br />
                     <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
                     <button disabled={!this.props.adds.edit} onClick={this.handleDelete.bind(this)}>DELETE</button>
+                    <button disabled={!this.props.adds.edit} onClick={this.handleMedias.bind(this)}>MEDIAS</button>
                 </div>
             );
         }
@@ -96,11 +104,9 @@ export default class AllAdds extends React.Component {
                 <div class="upper">
                     <h4>Adds for campaign "{this.props.campaign}"</h4>
                     <select id="adds" size="6">
-                        <option class="firstOption" key={"first"} value={null}>ADS</option>
                     </select>
                     <br />
                     <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
-                    <button onClick={this.handleDelete.bind(this)}>DELETE</button>
                 </div>
             );
         }

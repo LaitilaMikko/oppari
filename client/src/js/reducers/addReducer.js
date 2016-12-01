@@ -22,7 +22,7 @@ export default function reducer(state = {
                 ...state,
                 startCreating: false,
                 edit: false,
-                adds: []
+                adds: []         
             }
         }
         case "FETCH_ADDS_PENDING": {
@@ -47,8 +47,8 @@ export default function reducer(state = {
                 ...state,
                 fetching: false,
                 fetched: true,
-                adds: action.payload,
-                currAdd: {}    
+                adds: action.payload
+                  
             }
         }
         case "DELETE_ADD_PENDING": {

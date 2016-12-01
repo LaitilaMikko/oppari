@@ -8,16 +8,20 @@ export default class editAdd extends React.Component {
         super();
         this.state = {
             InClass : "",
-            OutClass: ""
+            OutClass: "",
+            render: true
         }
     }
 
     componentDidMount() {
+        this.setState({render: true});
         this.fillInputs();
     }
 
     componentDidUpdate() {
-        this.fillInputs();
+        if (this.state.render == true){
+            this.fillInputs();
+        }
     }
 
     fillInputs() {
@@ -49,12 +53,14 @@ export default class editAdd extends React.Component {
         setTimeout(() => {
            this.setState({InClass:"animated"}); 
         }, 1000);
+        this.setState({render: false});
     }
     handleOUTAnim(e){
         this.setState({OutClass:"animated "+ e.target.value});
         setTimeout(() => {
             this.setState({OutClass:"animated"});
         }, 1000);
+        this.setState({render: false});
     }
 
     render() {
