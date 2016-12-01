@@ -66,7 +66,7 @@ export default class Adds extends React.Component {
         var currCampName = this.props.currentCampaign.name;
         return (
             <div>
-                <Header title="Adds" location="FrontPage->Adds" />
+                <Header title="Ads" location="FrontPage->Ads" />
                 <AllAdds changeOrder={this.orderUpOrDown.bind(this)} deleteAdd={this.deleteAdd.bind(this)} startCreate={this.startCreatingAd.bind(this)} curr={this.currentAdd.bind(this)} campaign={this.props.currentCampaign.name} adds={this.props.adds} />
                 {addChanged && <EditAdd currCamp={currCampName} editAdd={this.editAdd.bind(this)} leftPage={this.leftPage.bind(this)} adds={this.props.adds} editing={this.props.adds.edit} title={<h4>Edit ad {currAdd.name}</h4>} selectChange={this.props.adds.selectChanged} currAdd={currAdd} />}
                 {createAdd && <EditAdd leftPage={this.leftPage.bind(this)} adds={this.props.adds} currCamp={currCampName} createAd={this.createAd.bind(this)} creating={this.props.adds.startCreating} title={<h4>Create ad</h4>} />}

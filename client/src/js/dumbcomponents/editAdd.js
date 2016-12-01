@@ -1,7 +1,16 @@
 import React from "react";
 import Serialize from "form-serialize";
 import { browserHistory } from "react-router";
+
 export default class editAdd extends React.Component {
+
+    constructor(){
+        super();
+        this.state = {
+            InClass : "",
+            OutClass: ""
+        }
+    }
 
     componentDidMount() {
         this.fillInputs();
@@ -35,6 +44,18 @@ export default class editAdd extends React.Component {
             this.props.createAd(data);
         }
     }
+    handleINAnim(e){
+        this.setState({InClass:"animated "+ e.target.value});
+        setTimeout(() => {
+           this.setState({InClass:"animated"}); 
+        }, 1000);
+    }
+    handleOUTAnim(e){
+        this.setState({OutClass:"animated "+ e.target.value});
+        setTimeout(() => {
+            this.setState({OutClass:"animated"});
+        }, 1000);
+    }
 
     render() {
         return (
@@ -44,20 +65,22 @@ export default class editAdd extends React.Component {
                     <p><input id="name" name="name" placeholder="Name" /></p>
                     <p><input id="duration" name="duration" placeholder="Duration" type="number" /></p>
                     <p>Is Activated<input id="activated" type="checkBox" name="activated" /></p>
-                    <p>
-                        <select id="animationIN" name="animationIN" placeholder="animationIN">
-                            <option key={"first"} value={null}>AnimationIN</option>
-                            <option key={"second"} value={"fadeIN"}>FadeIN</option>
+                    <div>
+                        <select onChange={this.handleINAnim.bind(this)} id="animationIN" name="animationIN" placeholder="animationIN">
+                            <option key={"first"} value={null}>AnimationIn</option>
+                            <option key={"second"} value={"fadeIn"}>fadeIn</option>
+                            <option key={"third"} value={"bounceIn"}>bounceIn</option>
                         </select>
-                        <a>  Animation example</a>
-                    </p>
-                    <p>
-                        <select id="animationOUT" name="animationOUT" placeholder="animationIN">
-                            <option key={"first"} value={null}>AnimationOUT</option>
-                            <option key={"second"} value={"fadeOUT"}>FadeOUT</option>
+                        <p id="InExample" className={this.state.InClass}>&nbsp;&nbsp;&nbsp;AnimationIN example</p>
+                    </div>
+                    <div>
+                        <select onChange={this.handleOUTAnim.bind(this)} id="animationOUT" name="animationOUT" placeholder="animationIN">
+                            <option key={"first"} value={null}>AnimationOut</option>
+                            <option key={"second"} value={"fadeOut"}>fadeOut</option>
+                            <option key={"third"} value={"bounceOut"}>bounceOut</option>
                         </select>
-                        <a>  Animation example</a>
-                    </p>
+                        <p id="OutExample" className={this.state.OutClass}>&nbsp;&nbsp;&nbsp;AnimationOUT example</p>
+                    </div>
                     <p><input name="submit" type="submit" defaultValue="SAVE" onClick={this.handleClick.bind(this)} /></p>
                 </form>
             </div>

@@ -70,13 +70,14 @@ export default class AllAdds extends React.Component {
 
     render() {
         const adds = this.props.adds.adds;
-        const mappedAdds = adds.map((add) => <option key={add.orderNum} value={add._id}>{add.name}#{add.orderNum}</option>)
+        const mappedAdds = adds.map((add) => <option key={add.orderNum} value={add._id}>{add.name}   #{add.orderNum}</option>)
         if (adds.length > 0) {
             return (
                 <div class="upper">
-                    <h4>Adds for campaign "{this.props.campaign}"</h4>
+                    <h4>Ads for campaign "{this.props.campaign}"</h4>
                     <div class="selectHolder">
                         <select id="adds" onChange={this.handleChange.bind(this)} size="6">
+                            <option class="firstOption" key={"first"} value={null}>ADS</option>
                             {mappedAdds}
                         </select>
                         <div class="arrows">
@@ -95,7 +96,7 @@ export default class AllAdds extends React.Component {
                 <div class="upper">
                     <h4>Adds for campaign "{this.props.campaign}"</h4>
                     <select id="adds" size="6">
-                        <option key="eka" value="null"></option>
+                        <option class="firstOption" key={"first"} value={null}>ADS</option>
                     </select>
                     <br />
                     <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
