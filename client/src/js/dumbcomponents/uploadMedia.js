@@ -1,26 +1,28 @@
 import React from "react";
 import Serialize from "form-serialize";
 
+
+
 export default class UploadMedia extends React.Component {
 
-    handleUpload(e){
+    handleUpload(e) {
         e.preventDefault();
-        var form = document.getElementById("uploadFile");
-        var data = Serialize(form,{hash:true});
-        console.log(data);
+        var file = document.getElementById("fileinput").files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            console.log(reader.result);
+        }
+
+        reader.readAsDataURL(file);
     }
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div class="lower">
-                <h4>Upload MediaFiles</h4>
-                <form id="uploadFile" encType="multipart/form-data">
-                    <div class="upload">
-                        <input name="sampleFile" type="file" class="upload" />
-                    </div>
-                    <br/>
-                    <input onClick={this.handleUpload.bind(this)} type="submit" defaultValue="UploadFile" class="btn btn-success"/>
+                <form id='uploadForm'>
+                    <input className="btn btn-success" id="fileinput" type="file" />
+                    <input className="btn btn-primary" type="button" defaultValue="Upload" onClick={this.handleUpload.bind(this)}/>
                 </form>
             </div>
         );

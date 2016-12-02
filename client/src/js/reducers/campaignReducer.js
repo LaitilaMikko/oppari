@@ -14,18 +14,21 @@ export default function reducer(state = {
     switch(action.type){
 
         case "FETCH_CAMPAIGNS_PENDING": {
-            return {...state,
+            return {
+                ...state,
                 fetching: true    
             }
         }
         case "FETCH_CAMPAIGNS_REJECTED": {
-            return {...state,
+            return {
+                ...state,
                 fetching: false,
                 error: action.payload
             }
         }
         case "FETCH_CAMPAIGNS_FULFILLED": {
-            return {...state,
+            return {
+                ...state,
                 fetching: false,
                 fetched: true,
                 campaigns: action.payload,
@@ -34,7 +37,8 @@ export default function reducer(state = {
             }
         }
         case "CREATE_CAMPAIGN_FULFILLED": {
-            return {...state,
+            return {
+                ...state,
                 created: true,
                 currSelection: action.payload,
                 campaigns: [...state.campaigns, action.payload]
@@ -47,24 +51,28 @@ export default function reducer(state = {
             }
         }
         case "CREATE_CAMPAIGN_REJECTED": {
-            return{...state,
+            return{
+                ...state,
                 created: false,
                 error: action.payload
             }
         }
         case "DELETE_CAMPAIGN_FULFILLED": {
-            return{...state,
+            return{
+                ...state,
                 deleted: true    
             }
         }
         case "DELETE_CAMPAIGN_REJECTED": {
-            return{...state,
+            return{
+                ...state,
                 deleted: false,
                 error: action.payload    
             }
         }
         case "CAMPAIGN_SELECT_CHANGED": {
-            return{...state,
+            return{
+                ...state,
                 changed: true,
                 currSelection: action.payload    
             }
