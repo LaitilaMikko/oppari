@@ -21,6 +21,7 @@
     "node-sass": "^3.10.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
+    "react-dropzone": "^3.7.3",
     "react-fileupload": "^2.4.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.0.1",
