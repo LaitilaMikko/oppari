@@ -45,4 +45,25 @@
     display: inline-block;
     width: 80px;
     height: 80px;
+    border-radius: 10px;
+    border-color: black;
+    margin: 3px;
+    
+}
+.uploadInfo {
+    display: inline-block;
+}
+.uploadFailed {
+    display: inline-block;
+    color: red;
+}
+.mediaSlot {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    background-color: lightgray;
+    margin: 1px;
 }

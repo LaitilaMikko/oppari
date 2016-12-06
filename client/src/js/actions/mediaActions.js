@@ -1,24 +1,26 @@
 import axios from "axios";
+import $ from "jquery";
 
-
-var config = {
-    headers: {
-        "content-type": "multipart/form-data"
-    }
-}
-
-export function uploadMedia(file) {
-    console.log(file);
+export function uploadMedia(file, campaign, ad) {
     return function(dispatch) {
         dispatch({type: "UPLOAD_MEDIA_PENDING"});
-        axios.post("http://localhost:3000/uploadMedia", file)
-            .then((reponse) => {
-                console.log(response);
-                dispatch({type: "UPLOAD_MEDIA_FULFILLED"})
-            })
-            .catch((error) => {
-                dispatch({type: "UPLOAD_MEDIA_REJECTED", payload: error})
-            })
+        $.ajax({
+            type: "POST",
+            contentType: false,
+            processData: false,
+            url: "http://localhost:3000/uploadMedia",
+            data: file,
+            headers: {
+                "campaign": campaign,
+                "ad": ad
+            },
+            success: function(response){
+                dispatch({type: "UPLOAD_MEDIA_FULFILLED", payload: response.data});
+            },
+            error: function(error){
+                dispatch({type: "UPLOAD_MEDIA_REJECTED", payload: error});
+            }
+        })
     }
 }
 

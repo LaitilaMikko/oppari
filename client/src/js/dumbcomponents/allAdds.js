@@ -93,9 +93,9 @@ export default class AllAdds extends React.Component {
                         </div>
                     </div>
                     <br />
-                    <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
-                    <button disabled={!this.props.adds.edit} onClick={this.handleDelete.bind(this)}>DELETE</button>
-                    <button disabled={!this.props.adds.edit} onClick={this.handleMedias.bind(this)}>MEDIAS</button>
+                    <button class="btn btn-success" onClick={this.handleCreate.bind(this)}><span class="glyphicon glyphicon-ok"></span>&nbsp;NEW AD</button>
+                    <button class="btn btn-danger" disabled={!this.props.adds.edit} onClick={this.handleDelete.bind(this)}><span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE</button>
+                    <button class="btn btn-primary" disabled={!this.props.adds.edit} onClick={this.handleMedias.bind(this)}><span class="glyphicon glyphicon-forward"></span>&nbsp;MEDIAS</button>
                 </div>
             );
         }
@@ -106,7 +106,7 @@ export default class AllAdds extends React.Component {
                     <select id="adds" size="6">
                     </select>
                     <br />
-                    <button onClick={this.handleCreate.bind(this)}>NEW AD</button>
+                    <button class="btn btn-success" onClick={this.handleCreate.bind(this)}><span class="glyphicon glyphicon-ok"></span>&nbsp;NEW AD</button>
                 </div>
             );
         }

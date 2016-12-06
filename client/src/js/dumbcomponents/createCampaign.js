@@ -56,7 +56,7 @@ export default class CreateCampaign extends React.Component {
                         <p><input onChange={this.wChange.bind(this)} placeholder="Screen Width" type="number" name="screenW" id="screenW"></input></p>
                         <p><input onChange={this.hChange.bind(this)} placeholder="Screen Height" type="number" name="screenH" id="screenH"></input></p>
                         <p><input onChange={this.screensChange.bind(this)} placeholder="Number of screens" type="number" name="screens" id="screens"></input></p>
-                        <p><input disabled={this.state.invalidData} type="submit" defaultValue="Add Campaign" onClick={this.handleClick.bind(this)}></input></p>
+                        <p><button class="btn btn-success" disabled={this.state.invalidData} type="submit" defaultValue="Add Campaign" onClick={this.handleClick.bind(this)}><span class="glyphicon glyphicon-ok"></span>&nbsp;CREATE CAMPAIGN</button></p>
                     </form>
                 </div>
             </div>

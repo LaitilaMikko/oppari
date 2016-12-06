@@ -6,7 +6,7 @@ export default class AddMedias extends React.Component {
         var medias = this.props.medias.medias;
         var mappedMedias = [];
         if (medias.length != 0){
-            mappedMedias = medias.map((media,key)=><img src={media.thumbUrl} key={key} class="mediaImg"/>)
+            mappedMedias = medias.map((media,key)=><img value={media._id} src={media.thumbUrl} key={key} class="mediaImg"/>)
         }
         return(
             <div class="center">
@@ -14,6 +14,8 @@ export default class AddMedias extends React.Component {
                 <div>
                     {mappedMedias}
                 </div>
+                <br />
+                <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE</button>
             </div>
         );
     }

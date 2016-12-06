@@ -87,7 +87,7 @@ export default class editAdd extends React.Component {
                         </select>
                         <p id="OutExample" className={this.state.OutClass}>&nbsp;&nbsp;&nbsp;AnimationOUT example</p>
                     </div>
-                    <p><input name="submit" type="submit" defaultValue="SAVE" onClick={this.handleClick.bind(this)} /></p>
+                    <p><button class="btn btn-success" name="submit" type="submit" onClick={this.handleClick.bind(this)}><span class="glyphicon glyphicon-ok"></span>&nbsp;SAVE</button></p>
                 </form>
             </div>
         );

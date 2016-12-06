@@ -4,6 +4,7 @@ export default function reducer(state = {
     uploaded: false,
     fetching: false,
     fetched: false,
+    failed: false,
     medias: [],
 },action){
     switch(action.type){
@@ -11,7 +12,7 @@ export default function reducer(state = {
             return {
                 ...state,
                 uploading: true,
-                uploaded: false
+                failed: false
             }
         }
         case "UPLOAD_MEDIA_REJECTED": {
@@ -19,6 +20,7 @@ export default function reducer(state = {
                 ...state,
                 uploading: false,
                 uploaded: false,
+                failed: true,
                 error: action.payload
             }
         }
@@ -26,7 +28,10 @@ export default function reducer(state = {
             return {
                 ...state,
                 uploading: false,
-                uploaded: false
+                uploaded: true,
+                medias: [
+                    ...state.medias, action.payload
+                ]
             }
         }
         case "FETCH_MEDIA_PENDING": {

@@ -48,8 +48,8 @@ export default class AllCampaigns extends React.Component {
                     <option key="eka" value="null"></option>
                     {mappedCampaigns}
                 </select>
-                <button onClick={this.handleDel.bind(this)}>DELETE</button>
-                <button onClick={this.handleNext.bind(this)}>NEXT</button>
+                <button class="btn btn-danger" onClick={this.handleDel.bind(this)}><span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE</button>
+                <button class="btn btn-primary" onClick={this.handleNext.bind(this)}><span class="glyphicon glyphicon-forward"></span>&nbsp;NEXT</button>
             </div>
         );
     }
