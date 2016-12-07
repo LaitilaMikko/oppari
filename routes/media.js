@@ -58,7 +58,7 @@ Router.post("/uploadMedia", function (req, res) {
                                 })
                                 newMedia.save(function (err, createdMedia) {
                                     if (err) { console.error(err); }
-                                    res.json({"success": true, "data": createdMedia});
+                                    res.json({ "success": true, "data": createdMedia });
                                 });
                             }
                         });
@@ -68,8 +68,6 @@ Router.post("/uploadMedia", function (req, res) {
         });
 
     });
-
-    //res.json({ "success": true });*/
 })
 
 Router.post("/getMedias", function (req, res) {
@@ -79,9 +77,22 @@ Router.post("/getMedias", function (req, res) {
         campaign: currCamp,
         ad: currAd
     }, function (err, result) {
-        if (err) { console.log(err); }
+        if (err) { console.error(err); }
         res.json(result);
     })
+})
+
+Router.post("/deleteMedia", function (req, res) {
+    var id = req.body.id
+    media.findOne({ _id: id }, function (err, found) {
+        if (err) { console.error(err); }
+        if (found) {
+            fs.unlink(found.url);
+            fs.unlink(found.thumbUrl);
+            found.remove();
+            res.json({ "success": true });
+        }
+    });
 })
 
 module.exports = Router;
