@@ -5,9 +5,39 @@ export default function reducer(state = {
     fetching: false,
     fetched: false,
     failed: false,
+    deleting: false,
+    deleted: false,
     medias: [],
-},action){
-    switch(action.type){
+}, action) {
+    switch (action.type) {
+        case "CHANGE_VAL": {
+            return {
+                ...state,
+                uploaded: false
+            }
+        }
+        case "DELETE_MEDIA_PENDING": {
+            return {
+                ...state,
+                deleting: true,
+                deleted: false
+            }
+        }
+        case "DELETE_MEDIA_FULFILLED": {
+            return {
+                ...state,
+                deleting: false,
+                deleted: true,
+            }
+        }
+        case "DELETE_MEDIA_REJECTED": {
+            return {
+                ...state,
+                deleting: false,
+                deleted: false,
+                error: action.payload
+            }
+        }
         case "UPLOAD_MEDIA_PENDING": {
             return {
                 ...state,
@@ -38,7 +68,8 @@ export default function reducer(state = {
             return {
                 ...state,
                 fetching: true,
-                fetched: false
+                fetched: false,
+                deleted: false
             }
         }
         case "FETCH_MEDIA_REJECTED": {

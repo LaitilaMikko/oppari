@@ -2,8 +2,8 @@ import axios from "axios";
 import $ from "jquery";
 
 export function uploadMedia(file, campaign, ad) {
-    return function(dispatch) {
-        dispatch({type: "UPLOAD_MEDIA_PENDING"});
+    return function (dispatch) {
+        dispatch({ type: "UPLOAD_MEDIA_PENDING" });
         $.ajax({
             type: "POST",
             contentType: false,
@@ -14,28 +14,46 @@ export function uploadMedia(file, campaign, ad) {
                 "campaign": campaign,
                 "ad": ad
             },
-            success: function(response){
-                dispatch({type: "UPLOAD_MEDIA_FULFILLED", payload: response.data});
+            success: function (response) {
+                dispatch({ type: "UPLOAD_MEDIA_FULFILLED", payload: response.data });
+                setTimeout(()=> {
+                    dispatch({type: "CHANGE_VAL"});
+                }, 2000);
             },
-            error: function(error){
-                dispatch({type: "UPLOAD_MEDIA_REJECTED", payload: error});
+            error: function (error) {
+                dispatch({ type: "UPLOAD_MEDIA_REJECTED", payload: error });
             }
         })
     }
 }
 
-export function fetchMedias(campaign,ad) {
-    return function(dispatch){
-        dispatch({type: "FETCH_MEDIA_PENDING"});
+export function fetchMedias(campaign, ad) {
+    return function (dispatch) {
+        dispatch({ type: "FETCH_MEDIA_PENDING" });
         axios.post("http://localhost:3000/getMedias", {
             campaign: campaign,
             ad: ad
         })
             .then((response) => {
-                dispatch({type: "FETCH_MEDIA_FULFILLED", payload: response.data});
+                dispatch({ type: "FETCH_MEDIA_FULFILLED", payload: response.data });
             })
             .catch((error) => {
-                dispatch({type: "FETCH_MEDIA_REJECTED", payload:error});
+                dispatch({ type: "FETCH_MEDIA_REJECTED", payload: error });
+            })
+    }
+}
+
+export function deleteMedia(id) {
+    return function (dispatch) {
+        dispatch({ type: "DELETE_MEDIA_PENDING" });
+        axios.post("http://localhost:3000/deleteMedia", {
+            id: id
+        })
+            .then((response) => {
+                dispatch({ type: "DELETE_MEDIA_FULFILLED", payload: response.data });
+            })
+            .catch((error) => {
+                dispatch({ type: "DELETE_MEDIA_REJECTED", payload: error });
             })
     }
 }

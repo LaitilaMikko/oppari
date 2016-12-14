@@ -90,7 +90,7 @@ Router.post("/deleteMedia", function (req, res) {
             fs.unlink(found.url);
             fs.unlink(found.thumbUrl);
             found.remove();
-            res.json({ "success": true });
+            res.json(found);
         }
     });
 })
