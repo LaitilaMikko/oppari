@@ -33,7 +33,8 @@ export default class AllAdds extends React.Component {
 
     handleDelete() {
         var add = this.props.adds.currAdd;
-        this.props.deleteAdd(add._id);
+        console.log(add);
+        this.props.deleteAdd(add._id,add.name,add.campaign);
     }
 
     handleUp() {

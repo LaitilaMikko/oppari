@@ -3,6 +3,8 @@ var mongoose = require("mongoose");
 var Router = express.Router();
 var Add = require("../Models/add");
 var _ = require("underscore");
+var rmdir = require("rmdir");
+var Media = require("../Models/media");
 
 
 Router.post("/addAd", function (req, res) {
@@ -31,6 +33,8 @@ Router.post("/deleteAdd", function (req, res) {
     Add.findOne({ _id: req.body.id }, function (err, deleteAdd) {
         if (err) { console.error(err); }
         deleteAdd.remove();
+        rmdir("C:/Users/Laitila/Desktop/Apps/oppari/Medias/"+ deleteAdd.campaign +"/"+ deleteAdd.name,function(err,dirs,files){
+        });
         res.json(deleteAdd);
     });
 });
@@ -109,6 +113,15 @@ Router.post("/addOrderUpOrDown", function (req, res) {
     )
     res.json("success");
 });
+
+Router.post("/deleteAdMedias", function(req,res){
+    Media.find({ad: req.body.adName, campaign: req.body.campaign}, function(err, found){
+        _.each(found, function(ad){
+            ad.remove();
+        })
+        res.json("Success");
+    });
+})
 
 
 module.exports = Router;

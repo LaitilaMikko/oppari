@@ -48,8 +48,8 @@ export default class Adds extends React.Component {
     leftPage() {
         this.props.dispatch(leftPage());
     }
-    deleteAdd(id) {
-        this.props.dispatch(deleteAdd(id));
+    deleteAdd(id,ad,campaign) {
+        this.props.dispatch(deleteAdd(id,ad,campaign));
     }
     editAdd(id, data) {
         this.props.dispatch(editAdd(id, data));

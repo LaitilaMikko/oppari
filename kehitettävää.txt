@@ -1,4 +1,1 @@
-- Kampanjan editointi etusivulla. Valitun kampanjan tiedot inputteihin. Buttonin kanssa ongelmaaa !
-- Animaatioiden esikatselu. Parempi keino kuin onChange ?
-- Mainosten poistamisen kanssa kehitettävää. Parempi keino kuin onChange ?
-- Jos liikutaan edestakaisin selaimen prev ja next nuolilla niin data liikkuisi mukana
+HOXHOX medianhallintaan liittyvät polut staattisia ! -> MUUTA DYNAAMISEKSI ASAP

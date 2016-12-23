@@ -45,7 +45,6 @@
     display: inline-block;
     width: 80px;
     height: 80px;
-    border-radius: 10px;
     border-color: black;
     margin: 3px;
     
@@ -70,4 +69,8 @@
 
 .images {
     display: inline-block;
+}
+
+btn btn-danger {
+    width: 80px;
 }

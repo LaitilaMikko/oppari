@@ -4,6 +4,8 @@ var Router = express.Router();
 var Campaign = require("../Models/campaign");
 var Add = require("../Models/add");
 var _ = require("underscore");
+var rmdir = require("rmdir");
+var Media = require("../Models/media");
 
 //Kampanjan lisääminen
 Router.post("/addCampaign", function (req, res) {
@@ -42,9 +44,16 @@ Router.post("/getLatestID", function (req, res) {
 
 //Kampanjan poistaminen
 Router.post("/deleteCampaign", function (req, res) {
-    Campaign.find({ _id: req.body.id }).remove(function () {
-        res.json("success");
-    });  
+    Campaign.findOne({ _id: req.body.id }, function(err, campaign){
+        var dir = __dirname.split("routes")[0];
+        var path = dir + "Medias/";
+        if (err) {console.error(err);}
+        rmdir(path + campaign.name,function(){
+
+        });
+        campaign.remove();
+    });
+    res.json("success");
 });
 
 Router.post("/deleteCampaignAdds", function (req, res) {
@@ -55,5 +64,13 @@ Router.post("/deleteCampaignAdds", function (req, res) {
     });
     res.json("success");
 });
+
+Router.post("/deleteCampaignMedia", function(req,res){
+    Media.find({campaign:req.body.campaign}, function (err, found){
+        _.each(found, function(media){
+            media.remove();
+        });
+    });
+})
 
 module.exports = Router;

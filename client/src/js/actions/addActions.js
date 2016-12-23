@@ -58,7 +58,7 @@ export function leftPage() {
     }
 }
 
-export function deleteAdd(id) {
+export function deleteAdd(id,ad,campaign) {
     return function (dispatch) {
         dispatch({ type: "DELETE_ADD_PENDING" });
         axios.post("http://localhost:3000/deleteAdd", {
@@ -70,7 +70,14 @@ export function deleteAdd(id) {
                     orderNum: response.data.orderNum
                 })
                 .then((response) => {
-                    dispatch({ type: "DELETE_ADD_FULFILLED", payload: response.data });
+                    console.log(ad,campaign);
+                    axios.post("http://localhost:3000/deleteAdMedias",{
+                        adName: ad,
+                        campaign: campaign
+                    })
+                    .then((response)=> {
+                        dispatch({ type: "DELETE_ADD_FULFILLED", payload: response.data });
+                    })         
                 });
             })
             .catch((error) => {
