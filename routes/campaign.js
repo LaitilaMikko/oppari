@@ -4,8 +4,9 @@ var Router = express.Router();
 var Campaign = require("../Models/campaign");
 var Add = require("../Models/add");
 var _ = require("underscore");
-var rmdir = require("rmdir");
+var rmdir = require('rimraf');
 var Media = require("../Models/media");
+var fs = require("fs");
 
 //Kampanjan lisääminen
 Router.post("/addCampaign", function (req, res) {
@@ -48,10 +49,19 @@ Router.post("/deleteCampaign", function (req, res) {
         var dir = __dirname.split("routes")[0];
         var path = dir + "Medias/";
         if (err) {console.error(err);}
-        rmdir(path + campaign.name,function(){
-
-        });
         campaign.remove();
+        rmdir(path + campaign.name,function(err, dirs, files){
+            if(files){
+                _.each(files, function(file){
+                    fs.unlink(file);
+                })
+            }
+            if(dirs){
+                _.each(dirs,function(dir){
+                    rmdir(dir);
+                })
+            }
+        });
     });
     res.json("success");
 });
@@ -71,6 +81,7 @@ Router.post("/deleteCampaignMedia", function(req,res){
             media.remove();
         });
     });
+    res.json("success");
 })
 
 module.exports = Router;

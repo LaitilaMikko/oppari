@@ -3,8 +3,9 @@ var mongoose = require("mongoose");
 var Router = express.Router();
 var Add = require("../Models/add");
 var _ = require("underscore");
-var rmdir = require("rmdir");
+var rmdir = require('rimraf');
 var Media = require("../Models/media");
+var fs = require("fs");
 
 
 Router.post("/addAd", function (req, res) {
@@ -31,9 +32,21 @@ Router.post("/getAdds", function (req, res) {
 
 Router.post("/deleteAdd", function (req, res) {
     Add.findOne({ _id: req.body.id }, function (err, deleteAdd) {
-        if (err) { console.error(err); }
         deleteAdd.remove();
-        rmdir("C:/Users/Laitila/Desktop/Apps/oppari/Medias/"+ deleteAdd.campaign +"/"+ deleteAdd.name,function(err,dirs,files){
+        var dir = __dirname.split("routes")[0];
+        var path = dir + "Medias/";
+        if (err) { console.error(err); }
+        rmdir(path + deleteAdd.campaign + "/" + deleteAdd.name, function (err, dirs, files) {
+            if (files) {
+                _.each(files, function (file) {
+                    fs.unlink(file);
+                })
+            }
+            if (dirs) {
+                _.each(dirs, function (dir) {
+                    rmdir(dir);
+                })
+            }
         });
         res.json(deleteAdd);
     });
@@ -44,20 +57,20 @@ Router.post("/addOrderNumsAfterDel", function (req, res) {
         _.each(adds, function (ad) {
             if (ad.orderNum > req.body.orderNum) {
                 var newOrder = ad.orderNum - 1;
-                updateOrders(ad._id,newOrder);
+                updateOrders(ad._id, newOrder);
             }
         });
     })
     res.json("success");
 })
 
-function updateOrders(id,orderNum) {
+function updateOrders(id, orderNum) {
     Add.update(
         { _id: id },
         {
             $set: { orderNum: orderNum }
-        }, function(err,result){
-            if(err){console.error(err);}
+        }, function (err, result) {
+            if (err) { console.error(err); }
         }
     )
 }
@@ -114,9 +127,9 @@ Router.post("/addOrderUpOrDown", function (req, res) {
     res.json("success");
 });
 
-Router.post("/deleteAdMedias", function(req,res){
-    Media.find({ad: req.body.adName, campaign: req.body.campaign}, function(err, found){
-        _.each(found, function(ad){
+Router.post("/deleteAdMedias", function (req, res) {
+    Media.find({ ad: req.body.adName, campaign: req.body.campaign }, function (err, found) {
+        _.each(found, function (ad) {
             ad.remove();
         })
         res.json("Success");

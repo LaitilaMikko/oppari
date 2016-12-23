@@ -70,7 +70,6 @@ export function deleteAdd(id,ad,campaign) {
                     orderNum: response.data.orderNum
                 })
                 .then((response) => {
-                    console.log(ad,campaign);
                     axios.post("http://localhost:3000/deleteAdMedias",{
                         adName: ad,
                         campaign: campaign
