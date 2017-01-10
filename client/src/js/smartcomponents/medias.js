@@ -26,8 +26,8 @@ export default class Medias extends React.Component {
             this.fetchMedias(this.props.currentCampaign.name, this.props.adds.currAdd.name);
         }
     }
-    uploadMedia(file,campaign,ad){
-        this.props.dispatch(uploadMedia(file,campaign,ad));
+    uploadMedia(file,campaign,ad,sHeight,sWidth){
+        this.props.dispatch(uploadMedia(file,campaign,ad, sHeight, sWidth));
     }
     fetchMedias(campaign,ad){
         this.props.dispatch(fetchMedias(campaign,ad));

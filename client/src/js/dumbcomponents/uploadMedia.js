@@ -9,11 +9,13 @@ export default class UploadMedia extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
+        var sWidth = this.props.campaign.screen_width;
+        var sHeight = this.props.campaign.screen_height;    
         var formdata = new FormData();
         var x = document.getElementById("file");
         var file = x.files[0];
         formdata.append("file",file);
-        this.props.upload(formdata,this.props.campaign.name,this.props.ad.name);
+        this.props.upload(formdata,this.props.campaign.name,this.props.ad.name,sHeight,sWidth);
         document.getElementById("uploadForm").reset();
     }
     

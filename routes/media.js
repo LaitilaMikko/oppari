@@ -21,8 +21,12 @@ Router.post("/uploadMedia", function (req, res) {
     var ad = req.headers.ad;
     var file = req.files.file;
     var filename = file.name;
+    var sWidth = req.headers.swidth;
+    var sHeight = req.headers.sheight;
+
     var mediaPath = "Medias/" + campaign + "/" + ad;
     var thumbPath = mediaPath + "/thumbnail";
+
     if (!req.files) {
         res.json({ "success": false });
         return;
@@ -48,6 +52,7 @@ Router.post("/uploadMedia", function (req, res) {
                             if (err) {
                                 console.log(err);
                             } else {
+                                console.log(countSlots(mediaPath + "/" + filename));
                                 var dir = __dirname.split("routes")[0];
                                 var newMedia = new media({
                                     name: filename,
@@ -66,6 +71,7 @@ Router.post("/uploadMedia", function (req, res) {
                 });
             }
         });
+
 
     });
 })
@@ -94,5 +100,28 @@ Router.post("/deleteMedia", function (req, res) {
         }
     });
 })
+
+function checkMedia(mediaPath, sWidth, sHeight) {
+    gm(mediaPath).identify(function (err, data) {
+        if (err) { console.error(err); }
+        var mWidth = data.size.width;
+        var mHeight = data.size.height;
+        var testi = sWidth % mWidth;
+        console.log(testi);
+        /*if (mHeight != sHeight){
+
+        }else if()*/
+    })
+}
+
+function countSlots(mediaPath, sWidth) {
+    var slots = 0;
+    gm(mediaPath).identify((err, data) => {
+        if (err) { console.error(err); }
+        var mWidth = data.size.width;
+        slots = mWidth / sWidth;
+    })
+    return slots;
+}
 
 module.exports = Router;

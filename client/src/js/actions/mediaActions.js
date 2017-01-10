@@ -1,7 +1,7 @@
 import axios from "axios";
 import $ from "jquery";
 
-export function uploadMedia(file, campaign, ad) {
+export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
     return function (dispatch) {
         dispatch({ type: "UPLOAD_MEDIA_PENDING" });
         $.ajax({
@@ -12,7 +12,9 @@ export function uploadMedia(file, campaign, ad) {
             data: file,
             headers: {
                 "campaign": campaign,
-                "ad": ad
+                "ad": ad,
+                "sHeight": sHeight,
+                "sWidth": sWidth
             },
             success: function (response) {
                 dispatch({ type: "UPLOAD_MEDIA_FULFILLED", payload: response.data });
