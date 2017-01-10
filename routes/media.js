@@ -56,8 +56,10 @@ Router.post("/uploadMedia", function (req, res) {
                                 var dir = __dirname.split("routes")[0];
                                 var newMedia = new media({
                                     name: filename,
-                                    url: dir + mediaPath + "/" + filename,
-                                    thumbUrl: dir + thumbPath + "/" + filename,
+                                    url: "http://192.168.1.2:2020/"+campaign+"/"+ad+"/"+filename,
+                                    thumbUrl: "http://192.168.1.2:2020/"+campaign+"/"+ad+"/thumbnail/"+filename,
+                                    physUrl: dir + mediaPath + "/" + filename,
+                                    physThumbUrl: dir + thumbPath + "/" + filename,
                                     campaign: campaign,
                                     ad: ad
                                 })
@@ -72,6 +74,11 @@ Router.post("/uploadMedia", function (req, res) {
             }
         });
 
+        //BACKUPPI URLEILLE TESTIÄ VARTEN:
+        /*
+            url: dir + mediaPath + "/" + filename,
+            thumbUrl: dir + thumbPath + "/" + filename,
+        */
 
     });
 })
@@ -93,8 +100,8 @@ Router.post("/deleteMedia", function (req, res) {
     media.findOne({ _id: id }, function (err, found) {
         if (err) { console.error(err); }
         if (found) {
-            fs.unlink(found.url);
-            fs.unlink(found.thumbUrl);
+            fs.unlink(found.physUrl);
+            fs.unlink(found.physThumbUrl);
             found.remove();
             res.json(found);
         }

@@ -8,7 +8,9 @@ mediaSchema = new mongoose.Schema({
     url: String,
     thumbUrl: String,
     campaign: String,
-    ad: String
+    ad: String,
+    physUrl: String,
+    physThumbUrl: String
 });
 
 var media = module.exports = mongoose.model("medias",mediaSchema);

@@ -1,1 +1,2 @@
 HOXHOX medianhallintaan liittyvät polut staattisia ! -> MUUTA DYNAAMISEKSI ASAP
+Parempi vaihtoehto kuvien näyttämisen mahdollistamiseen kuin kolmas servu (http-serveri) ?
