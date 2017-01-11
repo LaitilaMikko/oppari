@@ -10,11 +10,11 @@ var media = require("../Models/media");
 var videoExt = ["mp4", "webm", "mkv", "ogv"];
 
 
-Router.post("/prepUpload", function (req, res) {
+/*Router.post("/prepUpload", function (req, res) {
     campaign = req.body.campaign;
     ad = req.body.ad;
     res.json({ "success": true });
-})
+})*/
 
 Router.post("/uploadMedia", function (req, res) {
     var campaign = req.headers.campaign;
@@ -23,7 +23,7 @@ Router.post("/uploadMedia", function (req, res) {
     var filename = file.name;
     var sWidth = req.headers.swidth;
     var sHeight = req.headers.sheight;
-
+    var slots;
     var mediaPath = "Medias/" + campaign + "/" + ad;
     var thumbPath = mediaPath + "/thumbnail";
 
@@ -45,6 +45,18 @@ Router.post("/uploadMedia", function (req, res) {
                 res.json({ "success": false });
             }
             else {
+                gm(mediaPath + "/" + filename).size(function(err,size){
+                    if(err){console.error(err);}
+                    var mWidth = size.width;
+                    slots = mWidth/sWidth;
+                    /*if(mHeight != sHeight){
+                        res.json({"success": false});
+                        return false;
+                    }else if ((mWidth % sWidth)!= 0){
+                        res.json({"success": false});
+                        return false;
+                    }*/
+                });
                 mkdirp(thumbPath, function (err) {
                     if (isVideo > -1) {
                     } else {
@@ -52,7 +64,7 @@ Router.post("/uploadMedia", function (req, res) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log(countSlots(mediaPath + "/" + filename));
+                                console.log(slots);
                                 var dir = __dirname.split("routes")[0];
                                 var newMedia = new media({
                                     name: filename,
@@ -61,7 +73,8 @@ Router.post("/uploadMedia", function (req, res) {
                                     physUrl: dir + mediaPath + "/" + filename,
                                     physThumbUrl: dir + thumbPath + "/" + filename,
                                     campaign: campaign,
-                                    ad: ad
+                                    ad: ad,
+                                    slots: slots
                                 })
                                 newMedia.save(function (err, createdMedia) {
                                     if (err) { console.error(err); }
@@ -117,7 +130,9 @@ function checkMedia(mediaPath, sWidth, sHeight) {
         console.log(testi);
         /*if (mHeight != sHeight){
 
-        }else if()*/
+        }else if(testi != 0){
+            
+        }*/
     })
 }
 
@@ -127,8 +142,8 @@ function countSlots(mediaPath, sWidth) {
         if (err) { console.error(err); }
         var mWidth = data.size.width;
         slots = mWidth / sWidth;
+        return slots;
     })
-    return slots;
 }
 
 module.exports = Router;

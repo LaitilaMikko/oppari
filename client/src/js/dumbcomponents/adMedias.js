@@ -15,7 +15,7 @@ export default class AddMedias extends React.Component {
                 <div key={"div" + key} class="images" >
                     <img id={"Image"+ (key+ 1)} value={media._id} src={media.thumbUrl} key={key} class="mediaImg" />
                     <br />
-                    <p>&nbsp;Slots: 1</p>
+                    <p>&nbsp;Slots: {media.slots}</p>
                     <button value={media._id} onClick={this.handleDel.bind(this)} key={"btn" + key} class="btn btn-danger">
                         DELETE
                     </button>

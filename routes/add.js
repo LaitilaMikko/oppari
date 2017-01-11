@@ -96,7 +96,6 @@ Router.post("/updateAdd", function (req, res) {
 });
 
 Router.post("/addOrderUpOrDown", function (req, res) {
-    console.log(req.body);
     var add1ID = req.body.add1;
     var add2ID = req.body.add2;
     var action = req.body.action;
