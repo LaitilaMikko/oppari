@@ -45,45 +45,48 @@ Router.post("/uploadMedia", function (req, res) {
                 res.json({ "success": false });
             }
             else {
-                gm(mediaPath + "/" + filename).size(function(err,size){
-                    if(err){console.error(err);}
+                gm(mediaPath + "/" + filename).size(function (err, size) {
+                    if (err) { console.error(err); }
+
                     var mWidth = size.width;
-                    slots = mWidth/sWidth;
-                    /*if(mHeight != sHeight){
-                        res.json({"success": false});
-                        return false;
-                    }else if ((mWidth % sWidth)!= 0){
-                        res.json({"success": false});
-                        return false;
-                    }*/
-                });
-                mkdirp(thumbPath, function (err) {
-                    if (isVideo > -1) {
+                    var mHeight = size.height;
+                    if (mHeight != sHeight) {
+                        res.json({ "success": false, "reason": "Bad media Height!" });
+                        fs.unlink(mediaPath+"/"+filename);
+                    } else if ((mWidth % sWidth) != 0) {
+                        res.json({ "success": false, "reason": "Bad media Width!" });
+                        fs.unlink(mediaPath+"/"+filename);
                     } else {
-                        gm(mediaPath + "/" + filename).resize(80, 80, '!').write(thumbPath + "/" + filename, function (err) {
-                            if (err) {
-                                console.log(err);
+                        slots = mWidth / sWidth;
+                        mkdirp(thumbPath, function (err) {
+                            if (isVideo > -1) {
                             } else {
-                                console.log(slots);
-                                var dir = __dirname.split("routes")[0];
-                                var newMedia = new media({
-                                    name: filename,
-                                    url: "http://192.168.1.2:2020/"+campaign+"/"+ad+"/"+filename,
-                                    thumbUrl: "http://192.168.1.2:2020/"+campaign+"/"+ad+"/thumbnail/"+filename,
-                                    physUrl: dir + mediaPath + "/" + filename,
-                                    physThumbUrl: dir + thumbPath + "/" + filename,
-                                    campaign: campaign,
-                                    ad: ad,
-                                    slots: slots
-                                })
-                                newMedia.save(function (err, createdMedia) {
-                                    if (err) { console.error(err); }
-                                    res.json({ "success": true, "data": createdMedia });
+                                gm(mediaPath + "/" + filename).resize(80, 80, '!').write(thumbPath + "/" + filename, function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        var dir = __dirname.split("routes")[0];
+                                        var newMedia = new media({
+                                            name: filename,
+                                            url: "http://192.168.1.2:2020/" + campaign + "/" + ad + "/" + filename,
+                                            thumbUrl: "http://192.168.1.2:2020/" + campaign + "/" + ad + "/thumbnail/" + filename,
+                                            physUrl: dir + mediaPath + "/" + filename,
+                                            physThumbUrl: dir + thumbPath + "/" + filename,
+                                            campaign: campaign,
+                                            ad: ad,
+                                            slots: slots
+                                        })
+                                        newMedia.save(function (err, createdMedia) {
+                                            if (err) { console.error(err); }
+                                            res.json({ "success": true, "data": createdMedia });
+                                        });
+                                    }
                                 });
                             }
                         });
                     }
                 });
+
             }
         });
 
@@ -121,7 +124,7 @@ Router.post("/deleteMedia", function (req, res) {
     });
 })
 
-function checkMedia(mediaPath, sWidth, sHeight) {
+/*function checkMedia(mediaPath, sWidth, sHeight) {
     gm(mediaPath).identify(function (err, data) {
         if (err) { console.error(err); }
         var mWidth = data.size.width;
@@ -132,7 +135,7 @@ function checkMedia(mediaPath, sWidth, sHeight) {
 
         }else if(testi != 0){
             
-        }*/
+        }
     })
 }
 
@@ -144,6 +147,6 @@ function countSlots(mediaPath, sWidth) {
         slots = mWidth / sWidth;
         return slots;
     })
-}
+}*/
 
 module.exports = Router;

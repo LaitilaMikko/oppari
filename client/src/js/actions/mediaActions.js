@@ -17,10 +17,17 @@ export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
                 "sWidth": sWidth
             },
             success: function (response) {
-                dispatch({ type: "UPLOAD_MEDIA_FULFILLED", payload: response.data });
-                setTimeout(()=> {
-                    dispatch({type: "CHANGE_VAL"});
-                }, 2000);
+                if (response.success == true) {
+                    dispatch({ type: "UPLOAD_MEDIA_FULFILLED", payload: response.data });
+                    setTimeout(() => {
+                        dispatch({ type: "CHANGE_VAL" });
+                    }, 2000);
+                }else if (response.success == false) {
+                    dispatch({type: "UPLOAD_MEDIA_BAD_RESO", payload: response.reason});
+                    setTimeout(() => {
+                        dispatch({ type: "CHANGE_VAL" });
+                    }, 2000);
+                }
             },
             error: function (error) {
                 dispatch({ type: "UPLOAD_MEDIA_REJECTED", payload: error });

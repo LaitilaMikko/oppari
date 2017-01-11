@@ -10,15 +10,17 @@ export default class UploadMedia extends React.Component {
     handleClick(e) {
         e.preventDefault();
         var sWidth = this.props.campaign.screen_width;
-        var sHeight = this.props.campaign.screen_height;    
+        var sHeight = this.props.campaign.screen_height;
         var formdata = new FormData();
         var x = document.getElementById("file");
-        var file = x.files[0];
-        formdata.append("file",file);
-        this.props.upload(formdata,this.props.campaign.name,this.props.ad.name,sHeight,sWidth);
-        document.getElementById("uploadForm").reset();
+        if (x.files.length > 0) {
+            var file = x.files[0];
+            formdata.append("file", file);
+            this.props.upload(formdata, this.props.campaign.name, this.props.ad.name, sHeight, sWidth);
+            document.getElementById("uploadForm").reset();
+        }
     }
-    
+
     render() {
         return (
             <div class="lower">
@@ -29,8 +31,8 @@ export default class UploadMedia extends React.Component {
                     </div>
                     <br />
                     <button onClick={this.handleClick.bind(this)} type="submit" name="submitFile" id="submitFile" class=" btn btn-success" value="Upload file"><span class="glyphicon glyphicon-upload"></span>&nbsp;UPLOAD FILE</button>
-                    {this.props.medias.uploaded &&<p class="uploadInfo">&nbsp;&nbsp;Upload succesfull!</p>}
-                    {this.props.medias.failed &&<p class="uploadfailed">&nbsp;&nbsp;Upload Failed!</p>}
+                    {this.props.medias.uploaded && <p class="uploadInfo">&nbsp;&nbsp;Upload succesfull!</p>}
+                    {this.props.medias.failed && <p class="uploadFailed">&nbsp;&nbsp;{this.props.medias.reason}</p>}
                 </form>
             </div>
         );

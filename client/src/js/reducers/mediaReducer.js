@@ -7,13 +7,24 @@ export default function reducer(state = {
     failed: false,
     deleting: false,
     deleted: false,
+    reason: "",
     medias: [],
 }, action) {
     switch (action.type) {
+        case "UPLOAD_MEDIA_BAD_RESO": {
+            return {
+                ...state,
+                uploaded: false,
+                uploading: false,
+                reason: action.payload,
+                failed: true
+            }
+        }
         case "CHANGE_VAL": {
             return {
                 ...state,
-                uploaded: false
+                uploaded: false,
+                failed: false
             }
         }
         case "DELETE_MEDIA_PENDING": {
