@@ -8,6 +8,6 @@ campaignSchema = new mongoose.Schema({
     screens: Number,
     screen_width: Number,
     screen_height: Number
-});
+},{timestamps: true});
 
 var campaign = module.exports = mongoose.model("campaigns",campaignSchema);

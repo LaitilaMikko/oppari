@@ -1,2 +1,3 @@
-HOXHOX medianhallintaan liittyvät polut staattisia ! -> MUUTA DYNAAMISEKSI ASAP
-Parempi vaihtoehto kuvien näyttämisen mahdollistamiseen kuin kolmas servu (http-serveri) ?
+-HOXHOX medianhallintaan liittyvät polut staattisia ! -> MUUTA DYNAAMISEKSI ASAP
+-Parempi vaihtoehto kuvien näyttämisen mahdollistamiseen kuin kolmas servu (http-serveri) ?
+-Hommat pitää saada toimimaan ilman webpack dev-servua !!! (dev-servu servaa public kansioo atm)

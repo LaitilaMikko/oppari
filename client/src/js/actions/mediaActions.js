@@ -66,3 +66,10 @@ export function deleteMedia(id) {
             })
     }
 }
+
+export function mediaSelectionChanged(id,src){
+    var data = {id,src}
+    return function(dispatch){
+        dispatch({type: "MEDIA_SELECTION_CHANGE", payload: data});
+    }
+}

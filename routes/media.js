@@ -47,7 +47,6 @@ Router.post("/uploadMedia", function (req, res) {
             else {
                 gm(mediaPath + "/" + filename).size(function (err, size) {
                     if (err) { console.error(err); }
-
                     var mWidth = size.width;
                     var mHeight = size.height;
                     if (mHeight != sHeight) {

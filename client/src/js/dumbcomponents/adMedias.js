@@ -7,16 +7,30 @@ export default class AddMedias extends React.Component {
         this.props.delete(imgID);
     }
 
+
+    //HOXHOX fixaa tämä next !
+    handleMediaClick(e){
+        var img = e.target;
+        this.props.selectChanged(img.name, img.src);
+        if(this.props.medias.selected == true){
+            var prev = document.getElementsByClassName("mediaImgSelected");
+            prev.className = "mediaImg";
+            img.className = "mediaImgSelected";
+        }else if (this.props.medias.selected == false){
+            img.className = "mediaImgSelected";
+        }      
+    }
+
     render() {
         var medias = this.props.medias.medias;
         var mappedMedias = [];
         if (medias.length != 0) {
             mappedMedias = medias.map((media, key) =>
-                <div key={"div" + key} class="images" >
-                    <img id={"Image"+ (key+ 1)} value={media._id} src={media.thumbUrl} key={key} class="mediaImg" />
+                <div key={key} class="images" >
+                    <img onClick={this.handleMediaClick.bind(this)} id={"Image"+ (key+ 1)} name={media._id} src={media.thumbUrl} className="mediaImg" />
                     <br />
                     <p>&nbsp;Slots: {media.slots}</p>
-                    <button value={media._id} onClick={this.handleDel.bind(this)} key={"btn" + key} class="btn btn-danger">
+                    <button value={media._id} onClick={this.handleDel.bind(this)} class="btn btn-danger">
                         DELETE
                     </button>
                 </div>

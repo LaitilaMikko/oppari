@@ -11,6 +11,6 @@ addSchema = new mongoose.Schema({
     activated: Boolean,
     animationIN: String,
     animationOut: String
-});
+},{timestamps: true});
 
 var add = module.exports = mongoose.model("adds",addSchema);
