@@ -22,8 +22,8 @@ export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
                     setTimeout(() => {
                         dispatch({ type: "CHANGE_VAL" });
                     }, 2000);
-                }else if (response.success == false) {
-                    dispatch({type: "UPLOAD_MEDIA_BAD_RESO", payload: response.reason});
+                } else if (response.success == false) {
+                    dispatch({ type: "UPLOAD_MEDIA_BAD_RESO", payload: response.reason });
                     setTimeout(() => {
                         dispatch({ type: "CHANGE_VAL" });
                     }, 2000);
@@ -67,9 +67,20 @@ export function deleteMedia(id) {
     }
 }
 
-export function mediaSelectionChanged(id,src){
-    var data = {id,src}
-    return function(dispatch){
-        dispatch({type: "MEDIA_SELECTION_CHANGE", payload: data});
+export function mediaSelectionChanged(id, src, action) {
+    var data = { id, src }
+    if (action == "first") {
+        return function (dispatch) {
+            dispatch({ type: "MEDIA_SELECTION_FIRST", payload: data });
+        }
+    }else if(action == "changed"){
+        return function (dispatch) {
+            dispatch({type: "MEDIA_SELECTION_CHANGED", payload: data});
+        }
+    }else if(action == "discard"){
+        return function (dispatch) {
+            dispatch({type: "MEDIA_SELECTION_DISCARD"});
+        }
     }
 }
+

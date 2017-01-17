@@ -10,14 +10,33 @@ export default function reducer(state = {
     reason: "",
     medias: [],
     selectedMedia: {},
-    selected: false
+    selected: false,
+    firstSelection: true
+
 }, action) {
     switch (action.type) {
-        case "MEDIA_SELECTION_CHANGE": {
+        case "MEDIA_SELECTION_DISCARD": {
+            return {
+                ...state,
+                selected: false,
+                firstSelection: true,
+                selectedMedia: {}
+            }
+        }
+        case "MEDIA_SELECTION_FIRST": {
             return {
                 ...state,
                 selected: true,
+                firstSelection: false,
                 selectedMedia: action.payload
+            }
+        }
+        case "MEDIA_SELECTION_CHANGED": {
+            return {
+                ...state,
+                selected: true,
+                firstSelection: false,
+                selectedMedia: action.payload         
             }
         }
         case "UPLOAD_MEDIA_BAD_RESO": {

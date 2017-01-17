@@ -11,14 +11,18 @@ export default class AddMedias extends React.Component {
     //HOXHOX fixaa tämä next !
     handleMediaClick(e){
         var img = e.target;
-        this.props.selectChanged(img.name, img.src);
-        if(this.props.medias.selected == true){
-            var prev = document.getElementsByClassName("mediaImgSelected");
-            prev.className = "mediaImg";
+        if(this.props.medias.firstSelection == true){
             img.className = "mediaImgSelected";
-        }else if (this.props.medias.selected == false){
+            this.props.selectChanged(img.name, img.src, "first");
+        }else if(this.props.medias.selected == true && img.className != "mediaImgSelected"){
+            var prevSelection = document.getElementsByClassName("mediaImgSelected")[0];
+            prevSelection.className = "mediaImg";
             img.className = "mediaImgSelected";
-        }      
+            this.props.selectChanged(img.name, img.src, "changed");
+        }else if(img.className == "mediaImgSelected"){
+            img.className = "mediaImg";
+            this.props.selectChanged(img.name, img.src, "discard");
+        }  
     }
 
     render() {

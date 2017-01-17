@@ -34,8 +34,8 @@ export default class Medias extends React.Component {
     deleteMedia(id){
         this.props.dispatch(deleteMedia(id));
     }
-    mediaSelectionChanged(id,src){
-        this.props.dispatch(mediaSelectionChanged(id,src));
+    mediaSelectionChanged(id,src, action){
+        this.props.dispatch(mediaSelectionChanged(id,src,action));
     }
 
     render(){
