@@ -11,7 +11,8 @@ mediaSchema = new mongoose.Schema({
     ad: String,
     physUrl: String,
     physThumbUrl: String,
-    slots: Number
+    slots: Number,
+    reservedSlots: []
 },{timestamps: true});
 
 var media = module.exports = mongoose.model("medias",mediaSchema);

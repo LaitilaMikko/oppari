@@ -123,7 +123,7 @@ Router.post("/addOrderUpOrDown", function (req, res) {
             if (err) { console.error(err); }
         }
     )
-    res.json("success");
+    res.json("success"); 
 });
 
 Router.post("/deleteAdMedias", function (req, res) {

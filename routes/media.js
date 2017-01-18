@@ -123,6 +123,27 @@ Router.post("/deleteMedia", function (req, res) {
     });
 })
 
+Router.post("/reserveMediaSlots",function(req,res){
+    var id = req.body.id;
+    var slots = req.body.slots;
+    media.findOne({_id:id}, function(err,found){
+        if(err){console.error(err);}
+        if(found){
+            media.update(
+                {_id:id},
+                {
+                    $set:
+                    {
+                        reservedSlots: slots
+                    }
+                },function(err){
+                    if(err){ console.error(err);}
+                }
+            )
+        }
+    })
+})
+
 /*function checkMedia(mediaPath, sWidth, sHeight) {
     gm(mediaPath).identify(function (err, data) {
         if (err) { console.error(err); }

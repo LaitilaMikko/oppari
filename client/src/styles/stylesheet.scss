@@ -67,6 +67,17 @@
     margin: 1px;
 }
 
+.takenMediaSlot {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    background-color: lightcoral;
+    margin: 1px;
+}
+
 .images {
     display: inline-block;
 }
@@ -83,3 +94,4 @@ btn btn-danger {
     margin: 3px;
     opacity: 0.25;
 }
+
