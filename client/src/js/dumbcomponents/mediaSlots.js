@@ -16,31 +16,33 @@ export default class MediaSlots extends React.Component {
             var screens = this.props.campaign.screens;
             var testi = [];
             for (var i = 1; i <= screens; i++) {
-                testi.push(<div onClick={this.handleClick.bind(this)} class="mediaSlot" id={i} key={i}><p>{"#" + i}</p></div>);
+                testi.push(<div onClick={this.handleClick.bind(this)} className="mediaSlot" id={i} key={i}><img className="slotImg" src=""></img><p className="slotNumb">{"#" + i}</p></div>);
             }
             this.setState({ slots: testi });
         }
     }
     handleClick(e) {
         var slot = e.target;
-        if (slot.className != "takenMediaSlot") {        
+        if (slot.className != "takenMediaSlot" && this.props.medias.selected == true){        
             e.preventDefault();
-            this.thumbToSlot(slot);
-            //this.reserveMediaSlots(slot);
-            /*if(this.props.medias.selected == true){
-                e.target.append(<img src={media.src} className={"mediaImg"}></img>);
-            }*/
+            e.target.className = "takenMediaSlot";
+            var slotImg = e.target.children[0];
+            slotImg.src = this.props.medias.selectedMedia.src;
+            //this.thumbToSlot(slot);
+            this.reserveMediaSlots(slot);
+
         }
     }
-    thumbToSlot(slot){
+    /*thumbToSlot(slot){
         console.log(slot);
         var src = this.props.medias.selectedMedia.src;
         var slotStyle = {backgroundImage: 'url('+src+')'};
         slot.style=slotStyle;
-    }
+    }*/
 
 
     reserveMediaSlots(slot) {
+        var screens = this.props.campaign.screens;
         var medias = this.props.medias.medias;
         var selected = this.props.medias.selectedMedia;
         for (var i = 0; i < medias.length; i++) {
@@ -48,10 +50,16 @@ export default class MediaSlots extends React.Component {
                 var slots = medias[i].slots;
                 var mediaSlots = medias[i].reservedSlots;           
                 mediaSlots.push(slot.id+"-"+(Number(slot.id)+(Number(slots-1))));
+                if(((slots-1)+Number(slot.id)) <= screens){
                 for (var i = 1; i < slots; i++) {
-                    var id = Number(slot.id) + i;
-                    var reserved = document.getElementById(id);
-                    reserved.className = "takenMediaSlot";
+                   
+                        var id = Number(slot.id) + i;
+                        var reserved = document.getElementById(id);
+                        reserved.className = "takenMediaSlot";
+                    
+                    }
+                }else {
+                    console.log("Media takes too many slots!");
                 }
             }
         }
@@ -64,13 +72,20 @@ export default class MediaSlots extends React.Component {
     }
     componentDidUpdate() {
         var medias = this.props.medias.medias;
-
-        console.log(this.props.medias.selectedMedia);
     }
 
     handleSave(e){
         e.preventDefault();
-        console.log(document.getElementsByClassName("lol").length);
+    }
+    handleDel(e){
+        e.preventDefault();
+        var taken = document.getElementsByClassName("takenMediaSlot");
+        console.log(taken);
+        for (var i = 0; i <= taken.length-1; i++){
+            console.log(taken[i]);
+            taken[i].children[0].src = "";
+            taken[i].className = "mediaSlot";
+        }
     }
 
 
@@ -84,6 +99,7 @@ export default class MediaSlots extends React.Component {
                 </div>
                 <br />
                 <button onClick={this.handleSave.bind(this)} class="btn btn-primary">SAVE</button>
+                <button onClick={this.handleDel.bind(this)} class="btn btn-danger">ERASE SLOTS</button>
             </div>
         );
     }
