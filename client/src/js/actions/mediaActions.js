@@ -84,3 +84,9 @@ export function mediaSelectionChanged(id, src, action) {
     }
 }
 
+export function save(medias){
+    return function(dispatch){
+        dispatch({type: "SLOTS_ERASED"});
+    }
+}
+

@@ -23,7 +23,7 @@ export default class MediaSlots extends React.Component {
     }
     handleClick(e) {
         var slot = e.target;
-        if (slot.className != "takenMediaSlot" && this.props.medias.selected == true){        
+        if (slot.className != "takenMediaSlot" && this.props.medias.selected == true) {
             e.preventDefault();
             e.target.className = "takenMediaSlot";
             var slotImg = e.target.children[0];
@@ -48,17 +48,16 @@ export default class MediaSlots extends React.Component {
         for (var i = 0; i < medias.length; i++) {
             if (medias[i]._id == selected.id) {
                 var slots = medias[i].slots;
-                var mediaSlots = medias[i].reservedSlots;           
-                mediaSlots.push(slot.id+"-"+(Number(slot.id)+(Number(slots-1))));
-                if(((slots-1)+Number(slot.id)) <= screens){
-                for (var i = 1; i < slots; i++) {
-                   
+                var mediaSlots = medias[i].reservedSlots;
+                mediaSlots.push(slot.id + "-" + (Number(slot.id) + (Number(slots - 1))));
+                if (((slots - 1) + Number(slot.id)) <= screens) {
+                    for (var i = 1; i < slots; i++) {
                         var id = Number(slot.id) + i;
                         var reserved = document.getElementById(id);
                         reserved.className = "takenMediaSlot";
-                    
+
                     }
-                }else {
+                } else {
                     console.log("Media takes too many slots!");
                 }
             }
@@ -70,23 +69,34 @@ export default class MediaSlots extends React.Component {
         console.log(testi);
         //this.setState({reservations:})*/
     }
-    componentDidUpdate() {
+    /*componentDidUpdate() {
         var medias = this.props.medias.medias;
+    }*/
+
+
+    handleSave(e) {
+        e.preventDefault();
+        var medias = this.props.medias.medias;
+        
+    }
+    handleDel(e) {
+        e.preventDefault();
+        var screens = this.props.campaign.screens;
+        for (var i = 1; i <= screens; i++) {
+            var slot = document.getElementById(i);
+            slot.className = "mediaSlot";
+            slot.children[0].src = "";
+            /*taken[i].children[0].src = "";
+            taken[i].className = "mediaSlot";*/
+
+        }
+        var reservations = this.props.medias.medias;
+        for (var i = 0; i<reservations.length; i++){
+            reservations[i].reservedSlots = [];
+        }
+
     }
 
-    handleSave(e){
-        e.preventDefault();
-    }
-    handleDel(e){
-        e.preventDefault();
-        var taken = document.getElementsByClassName("takenMediaSlot");
-        console.log(taken);
-        for (var i = 0; i <= taken.length-1; i++){
-            console.log(taken[i]);
-            taken[i].children[0].src = "";
-            taken[i].className = "mediaSlot";
-        }
-    }
 
 
 

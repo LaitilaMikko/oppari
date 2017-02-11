@@ -15,6 +15,24 @@ export default function reducer(state = {
 
 }, action) {
     switch (action.type) {
+        case "MEDIA_SLOTS_SAVE_PENDING": {
+            return {
+                ...state,
+                medias: action.payload
+            }
+        }
+        case "MEDIA_SLOTS_SAVE_FULFILLED": {
+            return {
+                ...state,
+                medias: action.payload
+            }
+        }
+        case "MEDIA_SLOTS_SAVE_REJECTED": {
+            return {
+                ...state,
+                error: action.payload
+            }
+        }
         case "MEDIA_SELECTION_DISCARD": {
             return {
                 ...state,
