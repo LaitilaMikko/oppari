@@ -73,20 +73,54 @@ export function mediaSelectionChanged(id, src, action) {
         return function (dispatch) {
             dispatch({ type: "MEDIA_SELECTION_FIRST", payload: data });
         }
-    }else if(action == "changed"){
+    } else if (action == "changed") {
         return function (dispatch) {
-            dispatch({type: "MEDIA_SELECTION_CHANGED", payload: data});
+            dispatch({ type: "MEDIA_SELECTION_CHANGED", payload: data });
         }
-    }else if(action == "discard"){
+    } else if (action == "discard") {
         return function (dispatch) {
-            dispatch({type: "MEDIA_SELECTION_DISCARD"});
+            dispatch({ type: "MEDIA_SELECTION_DISCARD" });
         }
     }
 }
 
-export function save(medias){
-    return function(dispatch){
+export function saveSlots(medias, campaign, ad) {
+    return function (dispatch) {
+        dispatch({ type: "MEDIA_SLOTS_SAVE_PENDING" });
+        axios.post("http://localhost:3000/reserveMediaSlots", {
+            medias: medias,
+            campaign: campaign,
+            ad: ad
+        })
+            .then((response) => {
+                if (response.data.success == true) {
+                    dispatch({ type: "MEDIA_SLOTS_SAVE_FULFILLED"});
+                }
+            })
+            .catch((error) => {
+                dispatch({type: "MEDIA_SLOTS_SAVE_REJECTED", payload: error});
+            })
+    }
+    /*return function(dispatch){
         dispatch({type: "SLOTS_ERASED"});
-    }
+    }*/
 }
 
+export function erase(campaign,ad) {
+    return function (dispatch) {
+        dispatch({ type: "MEDIA_SLOTS_ERASE_PENDING" });
+        axios.post("http://localhost:3000/eraseSlots",{
+            campaign: campaign,
+            ad: ad
+        })
+            .then((response) => {
+                if(response.data.success == true){
+                    dispatch({type: "MEDIA_SLOTS_ERASE_FULFILLED"});
+                }
+            })
+            .catch((error) => {
+                dispatch({type: "MEDIA_SLOTS_ERASE_REJECTED", payload: error});
+            })
+
+    }
+}

@@ -11,20 +11,47 @@ export default function reducer(state = {
     medias: [],
     selectedMedia: {},
     selected: false,
-    firstSelection: true
-
+    firstSelection: true,
+    erased: false,
+    erasing: false,
+    saving: false,
+    saved: false,
 }, action) {
     switch (action.type) {
+        case "MEDIA_SLOTS_ERASE_PENDING": {
+            return {
+                ...state,
+                erasing: true,
+                erased: false
+            }
+        }
+        case "MEDIA_SLOTS_ERASE_FULFILLED": {
+            return {
+                ...state,
+                erasing: false,
+                erased: true
+            }
+        }
+        case "MEDIA_SLOTS_ERASE_REJECTED": {
+            return {
+                ...state,
+                erasing: false,
+                erased: false,
+                error: action.payload
+            }
+        }
         case "MEDIA_SLOTS_SAVE_PENDING": {
             return {
                 ...state,
-                medias: action.payload
+                saving: true,
+                saved: false
             }
         }
         case "MEDIA_SLOTS_SAVE_FULFILLED": {
             return {
                 ...state,
-                medias: action.payload
+                saving: false,
+                saved: true
             }
         }
         case "MEDIA_SLOTS_SAVE_REJECTED": {

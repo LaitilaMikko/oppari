@@ -7,6 +7,7 @@ var mkdirp = require('mkdirp');
 var gm = require('gm');
 var fs = require('fs');
 var media = require("../Models/media");
+var _ = require("underscore");
 var videoExt = ["mp4", "webm", "mkv", "ogv"];
 
 
@@ -51,10 +52,10 @@ Router.post("/uploadMedia", function (req, res) {
                     var mHeight = size.height;
                     if (mHeight != sHeight) {
                         res.json({ "success": false, "reason": "Bad media Height!" });
-                        fs.unlink(mediaPath+"/"+filename);
+                        fs.unlink(mediaPath + "/" + filename);
                     } else if ((mWidth % sWidth) != 0) {
                         res.json({ "success": false, "reason": "Bad media Width!" });
-                        fs.unlink(mediaPath+"/"+filename);
+                        fs.unlink(mediaPath + "/" + filename);
                     } else {
                         slots = mWidth / sWidth;
                         mkdirp(thumbPath, function (err) {
@@ -123,7 +124,60 @@ Router.post("/deleteMedia", function (req, res) {
     });
 })
 
-Router.post("/reserveMediaSlots",function(req,res){
+Router.post("/reserveMediaSlots", function (req, res) {
+    var updated = req.body.medias;
+    var campaign = req.body.campaign;
+    var ad = req.body.ad;
+    var medias = [];
+    media.find({
+        campaign: campaign,
+        ad: ad
+    }, function (err, result) {
+        if (err) { console.error(err); }
+        _.each(updated, function (newMedia) {
+            _.each(result, function (oldMedia) {
+                if (newMedia._id == oldMedia._id) {
+                    if (newMedia.reservedSlots.length > 0) {
+                        oldMedia.reservedSlots = newMedia.reservedSlots;
+                        oldMedia.save(function (err, result) {
+                            if (err) {
+                                console.error(err);
+                                res.json({"success": false});
+                            }
+                        });
+                    }
+                }
+            })
+        })
+        res.json({"success":true});   
+    })
+})
+
+Router.post("/eraseSlots", function(req,res){
+    var campaign = req.body.campaign;
+    var ad = req.body.ad;
+    media.find({
+        campaign: campaign,
+        ad: ad
+    },function(err,result){
+        if(err){
+            console.error(err)
+            res.json({"success": false});
+        }
+        _.each(result, function(media){
+            media.reservedSlots = [];
+            media.save(function(err,result){
+                if(err){
+                    console.error(err);
+                    res.json({"success": false});
+                }
+            })
+        });
+        res.json({"success": true});
+    });
+});
+
+/*Router.post("/reserveMediaSlots",function(req,res){
     var id = req.body.id;
     var slots = req.body.slots;
     media.findOne({_id:id}, function(err,found){
@@ -142,31 +196,8 @@ Router.post("/reserveMediaSlots",function(req,res){
             )
         }
     })
-})
+})*/
 
-/*function checkMedia(mediaPath, sWidth, sHeight) {
-    gm(mediaPath).identify(function (err, data) {
-        if (err) { console.error(err); }
-        var mWidth = data.size.width;
-        var mHeight = data.size.height;
-        var testi = sWidth % mWidth;
-        console.log(testi);
-        /*if (mHeight != sHeight){
 
-        }else if(testi != 0){
-            
-        }
-    })
-}
-
-function countSlots(mediaPath, sWidth) {
-    var slots = 0;
-    gm(mediaPath).identify((err, data) => {
-        if (err) { console.error(err); }
-        var mWidth = data.size.width;
-        slots = mWidth / sWidth;
-        return slots;
-    })
-}*/
 
 module.exports = Router;

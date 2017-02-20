@@ -28,17 +28,11 @@ export default class MediaSlots extends React.Component {
             e.target.className = "takenMediaSlot";
             var slotImg = e.target.children[0];
             slotImg.src = this.props.medias.selectedMedia.src;
-            //this.thumbToSlot(slot);
             this.reserveMediaSlots(slot);
 
         }
     }
-    /*thumbToSlot(slot){
-        console.log(slot);
-        var src = this.props.medias.selectedMedia.src;
-        var slotStyle = {backgroundImage: 'url('+src+')'};
-        slot.style=slotStyle;
-    }*/
+
 
 
     reserveMediaSlots(slot) {
@@ -63,20 +57,15 @@ export default class MediaSlots extends React.Component {
             }
         }
         console.log(mediaSlots);
-        /*var testi = this.state.reservations;
-        var reservations = {media:selected.id,slots:mediaSlots};
-        testi.push(reservations);
-        console.log(testi);
-        //this.setState({reservations:})*/
-    }
-    /*componentDidUpdate() {
-        var medias = this.props.medias.medias;
-    }*/
 
+    }
 
     handleSave(e) {
         e.preventDefault();
         var medias = this.props.medias.medias;
+        var ad = this.props.ad.name;
+        var campaign = this.props.ad.campaign;
+        this.props.save(medias,campaign,ad);
         
     }
     handleDel(e) {
@@ -86,14 +75,13 @@ export default class MediaSlots extends React.Component {
             var slot = document.getElementById(i);
             slot.className = "mediaSlot";
             slot.children[0].src = "";
-            /*taken[i].children[0].src = "";
-            taken[i].className = "mediaSlot";*/
 
         }
         var reservations = this.props.medias.medias;
         for (var i = 0; i<reservations.length; i++){
             reservations[i].reservedSlots = [];
         }
+        this.props.erase(this.props.ad.campaign, this.props.ad.name);
 
     }
 
