@@ -4,11 +4,9 @@ export default class AddMedias extends React.Component {
 
     handleDel(e) {
         var imgID = e.target.value;
-        this.props.delete(imgID);
+        this.props.slots(imgID);
     }
 
-
-    //HOXHOX fixaa tämä next !
     handleMediaClick(e){
         var img = e.target;
         if(this.props.medias.firstSelection == true){

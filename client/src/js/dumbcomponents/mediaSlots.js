@@ -9,7 +9,25 @@ export default class MediaSlots extends React.Component {
             reservations: []
         }
     }
-
+    componentDidUpdate(){
+        if(this.props.medias.fetched == true){
+            var medias = this.props.medias.medias;
+            for (var i = 0; i < medias.length; i++){
+                if(medias[i].reservedSlots.length > 0){
+                    var slots = medias[i].reservedSlots;
+                    for(var j = 0; j < slots.length; j++){
+                        var last = slots[j].split("-")[1];
+                        var first = slots[j].split("-")[0]; 
+                        document.getElementById(first).children[0].src = medias[i].thumbUrl;
+                        for(var k = first; k <= last; k++){
+                            console.log(first + "-" + last);                                               
+                            document.getElementById(k).className = "takenMediaSlot";
+                        }                       
+                    }
+                }
+            }
+        }
+    }
 
     componentDidMount() {
         if (this.props.campaign.screens != undefined) {
@@ -56,7 +74,6 @@ export default class MediaSlots extends React.Component {
                 }
             }
         }
-        console.log(mediaSlots);
 
     }
 

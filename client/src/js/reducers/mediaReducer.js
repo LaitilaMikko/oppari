@@ -71,6 +71,7 @@ export default function reducer(state = {
         case "MEDIA_SELECTION_FIRST": {
             return {
                 ...state,
+                fetched: false,
                 selected: true,
                 firstSelection: false,
                 selectedMedia: action.payload

@@ -44,6 +44,7 @@ export default class Medias extends React.Component {
         this.props.dispatch(erase(campaign,ad));
     }
 
+
     render(){
         return(
             <div>
