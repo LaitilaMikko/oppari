@@ -6,11 +6,34 @@ export default class MediaSlots extends React.Component {
         super();
         this.state = {
             slots: [],
-            reservations: []
+            reservations: [],
+            saveBtn: false
         }
     }
-    componentDidUpdate(){
-        if(this.props.medias.fetched == true){
+    componentDidUpdate() {
+        if (this.props.medias.fetched == true) {
+            var medias = this.props.medias.medias;
+            medias.map((media) => {
+                if (media.reservedSlots.length > 0) {
+                    var slots = media.reservedSlots;
+                    slots.map((slot) => {
+                        var first = slot.split("-")[0];
+                        var last = slot.split("-")[1];
+                        document.getElementById(first).children[0].src = media.thumbUrl;
+                        for (var i = first; i <= last; i++) {
+                            console.log(i);
+                            document.getElementById(i).className = "takenMediaSlot";
+                        }
+                    })
+                }
+            });
+        }
+        /*if (slots.length != null) {
+            if (slots.length != 0) {
+                this.setState({ saveBtn: true });
+            }
+        }*/
+        /*if(this.props.medias.fetched == true){
             var medias = this.props.medias.medias;
             for (var i = 0; i < medias.length; i++){
                 if(medias[i].reservedSlots.length > 0){
@@ -26,7 +49,7 @@ export default class MediaSlots extends React.Component {
                     }
                 }
             }
-        }
+        }*/
     }
 
     componentDidMount() {
@@ -82,8 +105,8 @@ export default class MediaSlots extends React.Component {
         var medias = this.props.medias.medias;
         var ad = this.props.ad.name;
         var campaign = this.props.ad.campaign;
-        this.props.save(medias,campaign,ad);
-        
+        this.props.save(medias, campaign, ad);
+
     }
     handleDel(e) {
         e.preventDefault();
@@ -95,7 +118,7 @@ export default class MediaSlots extends React.Component {
 
         }
         var reservations = this.props.medias.medias;
-        for (var i = 0; i<reservations.length; i++){
+        for (var i = 0; i < reservations.length; i++) {
             reservations[i].reservedSlots = [];
         }
         this.props.erase(this.props.ad.campaign, this.props.ad.name);
@@ -113,8 +136,11 @@ export default class MediaSlots extends React.Component {
                     {this.state.slots}
                 </div>
                 <br />
-                <button onClick={this.handleSave.bind(this)} class="btn btn-primary">SAVE</button>
+                <button disabled={this.state.saveBtn} onClick={this.handleSave.bind(this)} class="btn btn-primary">SAVE</button>
                 <button onClick={this.handleDel.bind(this)} class="btn btn-danger">ERASE SLOTS</button>
+                <br />
+                <br />
+                {this.props.medias.saved && <p>Slots Saved !</p>}
             </div>
         );
     }

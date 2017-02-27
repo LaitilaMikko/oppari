@@ -98,7 +98,8 @@ export default function reducer(state = {
             return {
                 ...state,
                 uploaded: false,
-                failed: false
+                failed: false,
+                saved: false
             }
         }
         case "DELETE_MEDIA_PENDING": {

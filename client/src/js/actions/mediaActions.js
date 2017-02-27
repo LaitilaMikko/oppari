@@ -39,7 +39,6 @@ export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
 }
 
 export function fetchMedias(campaign, ad) {
-    console.log(config);
     return function (dispatch) {
         dispatch({ type: "FETCH_MEDIA_PENDING" });
         axios.post(config.nodeServer +"getMedias", {
@@ -98,6 +97,9 @@ export function saveSlots(medias, campaign, ad) {
             .then((response) => {
                 if (response.data.success == true) {
                     dispatch({ type: "MEDIA_SLOTS_SAVE_FULFILLED"});
+                    setTimeout(() => {
+                        dispatch({ type: "CHANGE_VAL" });
+                    }, 2000);
                 }
             })
             .catch((error) => {
