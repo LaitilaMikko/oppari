@@ -9,8 +9,8 @@ var busboy = require("connect-busboy");
 var app = express();
 var cors = require("cors");
 
-app.use(express.static(__dirname + '/client/public'));
-app.use(express.static(__dirname + '/Medias'));
+//app.use(express.static(__dirname + './client/public'));
+//app.use(express.static(__dirname + '/Medias'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -22,9 +22,9 @@ app.use(require("./routes/campaign"));
 app.use(require("./routes/add"));
 app.use(require("./routes/media"));
 
-/*app.get("*", function(req,res){
-    res.sendFile();
-});*/
+app.get("*", function(req,res){
+    res.sendFile(__dirname + "/client/public/index.html");
+});
 
 app.listen(3000, function () {
     console.log("Appi kuuntelee portista 3000!");

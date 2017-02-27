@@ -10,6 +10,7 @@ var media = require("../Models/media");
 var _ = require("underscore");
 var videoExt = ["mp4", "webm", "mkv", "ogv"];
 
+var config = require("../client/public/config.js");
 
 /*Router.post("/prepUpload", function (req, res) {
     campaign = req.body.campaign;
@@ -68,8 +69,8 @@ Router.post("/uploadMedia", function (req, res) {
                                         var dir = __dirname.split("routes")[0];
                                         var newMedia = new media({
                                             name: filename,
-                                            url: "http://192.168.1.2:2020/" + campaign + "/" + ad + "/" + filename,
-                                            thumbUrl: "http://192.168.1.2:2020/" + campaign + "/" + ad + "/thumbnail/" + filename,
+                                            url: config.httpServer + campaign + "/" + ad + "/" + filename,
+                                            thumbUrl: config.httpServer + campaign + "/" + ad + "/thumbnail/" + filename,
                                             physUrl: dir + mediaPath + "/" + filename,
                                             physThumbUrl: dir + thumbPath + "/" + filename,
                                             campaign: campaign,

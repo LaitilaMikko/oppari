@@ -1,9 +1,10 @@
 import axios from "axios";
+var config = require("../../../public/config.js");
 
 export function fetchAdds(campaign) {
     return function (dispatch) {
         dispatch({ type: "FETCH_ADDS_PENDING" })
-        axios.post("http://localhost:3000/getAdds", {
+        axios.post(config.nodeServer + "getAdds", {
             campaign: campaign
         })
             .then((response) => {
@@ -34,7 +35,7 @@ export function startCreatingAd() {
 export function createAd(data) {
     return function (dispatch) {
         dispatch({ type: "CREATE_AD_PENDING" })
-        axios.post("http://localhost:3000/addAd", {
+        axios.post(config.nodeServer + "addAd", {
             name: data.name,
             campaign: data.campaign,
             duration: data.duration,
@@ -61,16 +62,16 @@ export function leftPage() {
 export function deleteAdd(id,ad,campaign) {
     return function (dispatch) {
         dispatch({ type: "DELETE_ADD_PENDING" });
-        axios.post("http://localhost:3000/deleteAdd", {
+        axios.post(config.nodeServer + "deleteAdd", {
             id: id          
         })
             .then((response) => {
-                axios.post("http://localhost:3000/addOrderNumsAfterDel",{
+                axios.post(config.nodeServer + "addOrderNumsAfterDel",{
                     campaign: response.data.campaign,
                     orderNum: response.data.orderNum
                 })
                 .then((response) => {
-                    axios.post("http://localhost:3000/deleteAdMedias",{
+                    axios.post(config.nodeServer + "deleteAdMedias",{
                         adName: ad,
                         campaign: campaign
                     })
@@ -88,7 +89,7 @@ export function deleteAdd(id,ad,campaign) {
 export function editAdd(id, data) {
     return function (dispatch) {
         dispatch({ type: "EDIT_AD_PENDING" });
-        axios.post("http://localhost:3000/updateAdd", {
+        axios.post(config.nodeServer + "updateAdd", {
             id: id,
             activated: data.isActivated,
             campaign: data.campaign,
@@ -115,7 +116,7 @@ export function changeOrder(adds) {
 export function orderUpOrDown(add1, add2, action, add1ordernum, add2ordernum) {
     return function (dispatch) {
         dispatch({ type: "AD_ORDER_CHANGE_PENDING" });
-        axios.post("http://localhost:3000/addOrderUpOrDown", {
+        axios.post(config.nodeServer + "addOrderUpOrDown", {
             add1: add1,
             add2: add2,
             action: action,

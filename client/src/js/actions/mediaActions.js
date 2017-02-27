@@ -1,6 +1,8 @@
 import axios from "axios";
 import $ from "jquery";
 
+var config = require("../../../public/config.js");
+
 export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
     return function (dispatch) {
         dispatch({ type: "UPLOAD_MEDIA_PENDING" });
@@ -8,7 +10,7 @@ export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
             type: "POST",
             contentType: false,
             processData: false,
-            url: "http://localhost:3000/uploadMedia",
+            url: config.nodeServer + "uploadMedia",
             data: file,
             headers: {
                 "campaign": campaign,
@@ -37,9 +39,10 @@ export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
 }
 
 export function fetchMedias(campaign, ad) {
+    console.log(config);
     return function (dispatch) {
         dispatch({ type: "FETCH_MEDIA_PENDING" });
-        axios.post("http://localhost:3000/getMedias", {
+        axios.post(config.nodeServer +"getMedias", {
             campaign: campaign,
             ad: ad
         })
@@ -55,7 +58,7 @@ export function fetchMedias(campaign, ad) {
 export function deleteMedia(id) {
     return function (dispatch) {
         dispatch({ type: "DELETE_MEDIA_PENDING" });
-        axios.post("http://localhost:3000/deleteMedia", {
+        axios.post(config.nodeServer + "deleteMedia", {
             id: id
         })
             .then((response) => {
@@ -87,7 +90,7 @@ export function mediaSelectionChanged(id, src, action) {
 export function saveSlots(medias, campaign, ad) {
     return function (dispatch) {
         dispatch({ type: "MEDIA_SLOTS_SAVE_PENDING" });
-        axios.post("http://localhost:3000/reserveMediaSlots", {
+        axios.post(config.nodeServer + "reserveMediaSlots", {
             medias: medias,
             campaign: campaign,
             ad: ad
@@ -109,7 +112,7 @@ export function saveSlots(medias, campaign, ad) {
 export function erase(campaign,ad) {
     return function (dispatch) {
         dispatch({ type: "MEDIA_SLOTS_ERASE_PENDING" });
-        axios.post("http://localhost:3000/eraseSlots",{
+        axios.post(config.nodeServer + "eraseSlots",{
             campaign: campaign,
             ad: ad
         })

@@ -1,10 +1,10 @@
 import Axios from "axios";
-
+var config = require("../../../public/config.js");
 
 export function fetchCampaigns() {
     return function (dispatch) {
         dispatch({ type: "FETCH_CAMPAIGNS_PENDING" });
-        Axios.get("http://localhost:3000/getCampaigns")
+        Axios.get(config.nodeServer + "getCampaigns")
             .then((response) => {
                 dispatch({ type: "FETCH_CAMPAIGNS_FULFILLED", payload: response.data });
             })
@@ -17,7 +17,7 @@ export function fetchCampaigns() {
 export function createCampaign(data) {
     return function (dispatch) {
         dispatch({ type: "CREATE_CAMPAIGN_PENDING" });
-        Axios.post("http://localhost:3000/addCampaign", {
+        Axios.post(config.nodeServer + "addCampaign", {
             name: data.name,
             screens: data.screens,
             screen_width: data.screenW,
@@ -34,15 +34,15 @@ export function createCampaign(data) {
 
 export function deleteCampaign(id, campaign) {
     return function (dispatch) {
-        Axios.post("http://localhost:3000/deleteCampaign", {
+        Axios.post(config.nodeServer + "deleteCampaign", {
             id: id
         })
             .then((response) => {
-                Axios.post("http://localhost:3000/deleteCampaignAdds", {
+                Axios.post(config.nodeServer + "deleteCampaignAdds", {
                     campaign: campaign
                 })
                     .then((response) => {
-                        Axios.post("http://localhost:3000/deleteCampaignMedia", {
+                        Axios.post(config.nodeServer + "deleteCampaignMedia", {
                             campaign: campaign
                         })
                             .then((response) => {
