@@ -16,28 +16,34 @@ import CreateCampaign from "../dumbcomponents/CreateCampaign";
 })
 
 export default class Layout extends React.Component {
-    componentWillMount() {
+    componentWillMount () {
         this.props.dispatch(fetchCampaigns());
     }
 
-    createCampaign(data){
+    createCampaign (data) {
         this.props.dispatch(createCampaign(data));
     }
-    
-    deleteCampaign(id,campaign){
-        this.props.dispatch(deleteCampaign(id,campaign));
+
+    deleteCampaign (id, campaign) {
+        this.props.dispatch(deleteCampaign(id, campaign));
     }
 
-    showCurrentCampaignData(data){
+    showCurrentCampaignData (data) {
         this.props.dispatch(showCurrentCampaignData(data));
     }
 
-    render() {
+    render () {
         return (
             <div>
                 <Header title="FrontPage" location="FrontPage" />
-                <CreateCampaign current={this.props.campaigns.currSelection} createCampaign={this.createCampaign.bind(this)} />
-                <AllCampaigns current={this.props.campaigns.currSelection} curr={this.showCurrentCampaignData.bind(this)} campaigns={this.props.campaigns.campaigns} deleteCampaign={this.deleteCampaign.bind(this)}/>
+                <CreateCampaign current={this.props.campaigns.currSelection}
+                    createCampaign={this.createCampaign.bind(this)}
+                />
+                <AllCampaigns current={this.props.campaigns.currSelection}
+                    curr={this.showCurrentCampaignData.bind(this)}
+                    campaigns={this.props.campaigns.campaigns}
+                    deleteCampaign={this.deleteCampaign.bind(this)}
+                />
             </div>
         );
     }

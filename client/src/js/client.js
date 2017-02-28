@@ -1,8 +1,9 @@
+/*eslint-env node*/
+/*eslint-env browser*/
 import React from "react";
 import ReactDOM from "react-dom";
-import {Provider} from "react-redux";
-import {Router, Route, browserHistory} from "react-router";
-
+import { Provider } from "react-redux";
+import { Router, Route, browserHistory } from "react-router";
 import Layout from "./smartcomponents/layout";
 import Store from "./store";
 import Adds from "./smartcomponents/adds";

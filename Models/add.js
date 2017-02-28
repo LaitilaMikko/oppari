@@ -1,9 +1,8 @@
-var express = require("express");
-var bodyparser = require("body-parser");
+/*eslint-env node*/
+/*eslint-env browser*/
 var mongoose = require("mongoose");
-var cookieparser = require("cookie-parser");
 
-addSchema = new mongoose.Schema({
+var addSchema = new mongoose.Schema({
     name: String,
     campaign: String,
     orderNum: Number,
@@ -11,6 +10,6 @@ addSchema = new mongoose.Schema({
     activated: Boolean,
     animationIN: String,
     animationOut: String
-},{timestamps: true});
+}, { timestamps: true });
 
-var add = module.exports = mongoose.model("adds",addSchema);
+module.exports = mongoose.model("adds", addSchema);

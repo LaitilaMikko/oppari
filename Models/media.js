@@ -1,10 +1,8 @@
-var express = require("express");
-var bodyparser = require("body-parser");
+/*eslint-env node*/
+/*eslint-env browser*/
 var mongoose = require("mongoose");
-var cookieparser = require("cookie-parser");
 
-
-mediaSchema = new mongoose.Schema({
+var mediaSchema = new mongoose.Schema({
     name: String,
     url: String,
     thumbUrl: String,
@@ -14,6 +12,6 @@ mediaSchema = new mongoose.Schema({
     physThumbUrl: String,
     slots: Number,
     reservedSlots: []
-},{timestamps: true});
+}, { timestamps: true });
 
-var media = module.exports = mongoose.model("medias",mediaSchema);
+module.exports = mongoose.model("medias", mediaSchema);

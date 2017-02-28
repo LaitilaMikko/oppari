@@ -1,13 +1,9 @@
+/*eslint-env node*/
+/*eslint-env browser*/
 import React from "react";
-import Serialize from "form-serialize";
-import Dropzone from "react-dropzone";
-import Axios from "axios";
-
-
 
 export default class UploadMedia extends React.Component {
-
-    handleClick(e) {
+    handleClick (e) {
         e.preventDefault();
         var sWidth = this.props.campaign.screen_width;
         var sHeight = this.props.campaign.screen_height;
@@ -21,18 +17,21 @@ export default class UploadMedia extends React.Component {
         }
     }
 
-    render() {
+    render () {
         return (
-            <div class="lower">
-                <form ref='uploadForm' id='uploadForm'>
-                    <div class="fileUpload btn btn-primary">
+            <div className="lower">
+                <form ref="uploadForm" id="uploadForm">
+                    <div className="fileUpload btn btn-primary">
                         <span>Select File</span>
-                        <input name="file" id="file" type="file" class="upload" />
+                        <input name="file" id="file" type="file" className="upload" />
                     </div>
                     <br />
-                    <button onClick={this.handleClick.bind(this)} type="submit" name="submitFile" id="submitFile" class=" btn btn-success" value="Upload file"><span class="glyphicon glyphicon-upload"></span>&nbsp;UPLOAD FILE</button>
-                    {this.props.medias.uploaded && <p class="uploadInfo">&nbsp;&nbsp;Upload succesfull!</p>}
-                    {this.props.medias.failed && <p class="uploadFailed">&nbsp;&nbsp;{this.props.medias.reason}</p>}
+                    <button onClick={this.handleClick.bind(this)} type="submit" name="submitFile"
+                         id="submitFile" className=" btn btn-success" value="Upload file">
+                         <span className="glyphicon glyphicon-upload"/>&nbsp;UPLOAD FILE
+                    </button>
+                    {this.props.medias.uploaded && <p className="uploadInfo">&nbsp;&nbsp;Upload succesfull!</p>}
+                    {this.props.medias.failed && <p className="uploadFailed">&nbsp;&nbsp;{this.props.medias.reason}</p>}
                 </form>
             </div>
         );

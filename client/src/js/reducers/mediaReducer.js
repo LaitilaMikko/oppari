@@ -1,4 +1,4 @@
-export default function reducer(state = {
+export default function reducer (state = {
     error: null,
     uploading: false,
     uploaded: false,
@@ -15,7 +15,7 @@ export default function reducer(state = {
     erased: false,
     erasing: false,
     saving: false,
-    saved: false,
+    saved: false
 }, action) {
     switch (action.type) {
         case "MEDIA_SLOTS_ERASE_PENDING": {
@@ -23,14 +23,14 @@ export default function reducer(state = {
                 ...state,
                 erasing: true,
                 erased: false
-            }
+            };
         }
         case "MEDIA_SLOTS_ERASE_FULFILLED": {
             return {
                 ...state,
                 erasing: false,
                 erased: true
-            }
+            };
         }
         case "MEDIA_SLOTS_ERASE_REJECTED": {
             return {
@@ -38,27 +38,27 @@ export default function reducer(state = {
                 erasing: false,
                 erased: false,
                 error: action.payload
-            }
+            };
         }
         case "MEDIA_SLOTS_SAVE_PENDING": {
             return {
                 ...state,
                 saving: true,
                 saved: false
-            }
+            };
         }
         case "MEDIA_SLOTS_SAVE_FULFILLED": {
             return {
                 ...state,
                 saving: false,
                 saved: true
-            }
+            };
         }
         case "MEDIA_SLOTS_SAVE_REJECTED": {
             return {
                 ...state,
                 error: action.payload
-            }
+            };
         }
         case "MEDIA_SELECTION_DISCARD": {
             return {
@@ -66,7 +66,7 @@ export default function reducer(state = {
                 selected: false,
                 firstSelection: true,
                 selectedMedia: {}
-            }
+            };
         }
         case "MEDIA_SELECTION_FIRST": {
             return {
@@ -75,15 +75,15 @@ export default function reducer(state = {
                 selected: true,
                 firstSelection: false,
                 selectedMedia: action.payload
-            }
+            };
         }
         case "MEDIA_SELECTION_CHANGED": {
             return {
                 ...state,
                 selected: true,
                 firstSelection: false,
-                selectedMedia: action.payload         
-            }
+                selectedMedia: action.payload
+            };
         }
         case "UPLOAD_MEDIA_BAD_RESO": {
             return {
@@ -92,7 +92,7 @@ export default function reducer(state = {
                 uploading: false,
                 reason: action.payload,
                 failed: true
-            }
+            };
         }
         case "CHANGE_VAL": {
             return {
@@ -100,21 +100,21 @@ export default function reducer(state = {
                 uploaded: false,
                 failed: false,
                 saved: false
-            }
+            };
         }
         case "DELETE_MEDIA_PENDING": {
             return {
                 ...state,
                 deleting: true,
                 deleted: false
-            }
+            };
         }
         case "DELETE_MEDIA_FULFILLED": {
             return {
                 ...state,
                 deleting: false,
-                deleted: true,
-            }
+                deleted: true
+            };
         }
         case "DELETE_MEDIA_REJECTED": {
             return {
@@ -122,14 +122,14 @@ export default function reducer(state = {
                 deleting: false,
                 deleted: false,
                 error: action.payload
-            }
+            };
         }
         case "UPLOAD_MEDIA_PENDING": {
             return {
                 ...state,
                 uploading: true,
                 failed: false
-            }
+            };
         }
         case "UPLOAD_MEDIA_REJECTED": {
             return {
@@ -138,7 +138,7 @@ export default function reducer(state = {
                 uploaded: false,
                 failed: true,
                 error: action.payload
-            }
+            };
         }
         case "UPLOAD_MEDIA_FULFILLED": {
             return {
@@ -148,7 +148,7 @@ export default function reducer(state = {
                 medias: [
                     ...state.medias, action.payload
                 ]
-            }
+            };
         }
         case "FETCH_MEDIA_PENDING": {
             return {
@@ -156,7 +156,7 @@ export default function reducer(state = {
                 fetching: true,
                 fetched: false,
                 deleted: false
-            }
+            };
         }
         case "FETCH_MEDIA_REJECTED": {
             return {
@@ -164,7 +164,7 @@ export default function reducer(state = {
                 fetching: false,
                 fetched: false,
                 error: action.payload
-            }
+            };
         }
         case "FETCH_MEDIA_FULFILLED": {
             return {
@@ -172,7 +172,7 @@ export default function reducer(state = {
                 fetching: false,
                 fetched: true,
                 medias: action.payload
-            }
+            };
         }
     }
     return state;

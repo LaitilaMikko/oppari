@@ -1,13 +1,13 @@
-var express = require("express");
-var bodyparser = require("body-parser");
+/*eslint-env node*/
+/*eslint-env browser*/
 var mongoose = require("mongoose");
-var cookieparser = require("cookie-parser");
 
-campaignSchema = new mongoose.Schema({
+
+var campaignSchema = new mongoose.Schema({
     name: String,
     screens: Number,
     screen_width: Number,
     screen_height: Number
-},{timestamps: true});
+}, { timestamps: true });
 
-var campaign = module.exports = mongoose.model("campaigns",campaignSchema);
+module.exports = mongoose.model("campaigns", campaignSchema);

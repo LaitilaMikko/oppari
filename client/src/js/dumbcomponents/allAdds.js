@@ -1,60 +1,57 @@
+/*eslint-env node*/
+/*eslint-env browser*/
 import React from "react";
 import { browserHistory } from "react-router";
 
 export default class AllAdds extends React.Component {
-    constructor() {
+    constructor () {
         super();
         this.state = {
             selectedIndex: null
-        }
+        };
     }
 
-
-    
-    handleChange(e) {
-        
+    handleChange (e) {
         var index = e.nativeEvent.target.selectedIndex;
         this.setState({ selectedIndex: index });
         this.findSelectedAdd(e.target.value);
     }
 
-    findSelectedAdd(id) {
+    findSelectedAdd (id) {
         var adds = this.props.adds.adds;
         for (var i = 0; i < adds.length; i++) {
-            if (adds[i]._id == id) {
+            if (adds[i]._id === id) {
                 this.props.curr(adds[i]);
             }
         }
     }
 
-    handleCreate() {
+    handleCreate () {
         this.props.startCreate();
     }
 
-    handleDelete() {
+    handleDelete () {
         var add = this.props.adds.currAdd;
-        console.log(add);
-        this.props.deleteAdd(add._id,add.name,add.campaign);
+        this.props.deleteAdd(add._id, add.name, add.campaign);
     }
 
-    handleUp() {
+    handleUp () {
         var index = this.state.selectedIndex;
         this.handleOrder("Up", index);
     }
 
-    handleDown() {
+    handleDown () {
         var index = this.state.selectedIndex;
         this.handleOrder("Down", index);
     }
 
-    handleMedias(){
+    handleMedias () {
         browserHistory.push("/medias");
     }
 
-    handleOrder(action, index) {
-        if (action == "Up") {
+    handleOrder (action, index) {
+        if (action === "Up") {
             if (index > 0) {
-                var adds = this.props.adds.adds;
                 var curr = this.props.adds.adds[index]._id;
                 var next = this.props.adds.adds[index - 1]._id;
                 var currAddOrder;
@@ -63,9 +60,8 @@ export default class AllAdds extends React.Component {
                 nextAddOrder = index + 1;
                 this.props.changeOrder(curr, next, action, currAddOrder, nextAddOrder);
             }
-        } else if (action == "Down") {
+        } else if (action === "Down") {
             if ((index + 1) < this.props.adds.adds.length) {
-                var adds = this.props.adds.adds;
                 var curr = this.props.adds.adds[index]._id;
                 var prev = this.props.adds.adds[index + 1]._id;
                 var currAddOrder;
@@ -77,37 +73,47 @@ export default class AllAdds extends React.Component {
         }
     }
 
-    render() {
+    render () {
         const adds = this.props.adds.adds;
-        const mappedAdds = adds.map((add) => <option key={add.orderNum} value={add._id}>{add.name}   #{add.orderNum}</option>)
+        const mappedAdds = adds.map((add) =>
+            <option key={add.orderNum} value={add._id}>{add.name}   #{add.orderNum}</option>
+        );
         if (adds.length > 0) {
             return (
-                <div class="upper">
+                <div className="upper">
                     <h4>Ads for campaign "{this.props.campaign}"</h4>
-                    <div class="selectHolder">
+                    <div className="selectHolder">
                         <select id="adds" onChange={this.handleChange.bind(this)} size="6">
                             {mappedAdds}
                         </select>
-                        <div class="arrows">
+                        <div className="arrows">
                             <p onClick={this.handleUp.bind(this)}>&#x21E7;</p>
                             <p onClick={this.handleDown.bind(this)}>&#x21E9;</p>
                         </div>
                     </div>
                     <br />
-                    <button class="btn btn-success" onClick={this.handleCreate.bind(this)}><span class="glyphicon glyphicon-ok"></span>&nbsp;NEW AD</button>
-                    <button class="btn btn-danger" disabled={!this.props.adds.edit} onClick={this.handleDelete.bind(this)}><span class="glyphicon glyphicon-trash"></span>&nbsp;DELETE</button>
-                    <button class="btn btn-primary" disabled={!this.props.adds.edit} onClick={this.handleMedias.bind(this)}><span class="glyphicon glyphicon-forward"></span>&nbsp;MEDIAS</button>
+                    <button className="btn btn-success" onClick={this.handleCreate.bind(this)}>
+                        <span className="glyphicon glyphicon-ok"/>&nbsp;NEW AD
+                    </button>
+                    <button className="btn btn-danger" disabled={!this.props.adds.edit}
+                        onClick={this.handleDelete.bind(this)}>
+                        <span className="glyphicon glyphicon-trash"/>&nbsp;DELETE
+                    </button>
+                    <button className="btn btn-primary" disabled={!this.props.adds.edit}
+                        onClick={this.handleMedias.bind(this)}>
+                        <span className="glyphicon glyphicon-forward"/>&nbsp;MEDIAS
+                    </button>
                 </div>
             );
-        }
-        else {
+        } else {
             return (
-                <div class="upper">
+                <div className="upper">
                     <h4>Adds for campaign "{this.props.campaign}"</h4>
-                    <select id="adds" size="6">
-                    </select>
+                    <select id="adds" size="6"/>
                     <br />
-                    <button class="btn btn-success" onClick={this.handleCreate.bind(this)}><span class="glyphicon glyphicon-ok"></span>&nbsp;NEW AD</button>
+                    <button className="btn btn-success" onClick={this.handleCreate.bind(this)}>
+                        <span className="glyphicon glyphicon-ok"/>&nbsp;NEW AD
+                    </button>
                 </div>
             );
         }

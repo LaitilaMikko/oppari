@@ -1,9 +1,11 @@
+/*eslint-env node*/
+/*eslint-env browser*/
 import axios from "axios";
 import $ from "jquery";
 
 var config = require("../../../public/config.js");
 
-export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
+export function uploadMedia (file, campaign, ad, sHeight, sWidth) {
     return function (dispatch) {
         dispatch({ type: "UPLOAD_MEDIA_PENDING" });
         $.ajax({
@@ -13,18 +15,18 @@ export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
             url: config.nodeServer + "uploadMedia",
             data: file,
             headers: {
-                "campaign": campaign,
-                "ad": ad,
-                "sHeight": sHeight,
-                "sWidth": sWidth
+                campaign: campaign,
+                ad: ad,
+                sHeight: sHeight,
+                sWidth: sWidth
             },
             success: function (response) {
-                if (response.success == true) {
+                if (response.success === true) {
                     dispatch({ type: "UPLOAD_MEDIA_FULFILLED", payload: response.data });
                     setTimeout(() => {
                         dispatch({ type: "CHANGE_VAL" });
                     }, 2000);
-                } else if (response.success == false) {
+                } else if (response.success === false) {
                     dispatch({ type: "UPLOAD_MEDIA_BAD_RESO", payload: response.reason });
                     setTimeout(() => {
                         dispatch({ type: "CHANGE_VAL" });
@@ -34,14 +36,14 @@ export function uploadMedia(file, campaign, ad, sHeight, sWidth) {
             error: function (error) {
                 dispatch({ type: "UPLOAD_MEDIA_REJECTED", payload: error });
             }
-        })
-    }
+        });
+    };
 }
 
-export function fetchMedias(campaign, ad) {
+export function fetchMedias (campaign, ad) {
     return function (dispatch) {
         dispatch({ type: "FETCH_MEDIA_PENDING" });
-        axios.post(config.nodeServer +"getMedias", {
+        axios.post(config.nodeServer + "getMedias", {
             campaign: campaign,
             ad: ad
         })
@@ -50,11 +52,11 @@ export function fetchMedias(campaign, ad) {
             })
             .catch((error) => {
                 dispatch({ type: "FETCH_MEDIA_REJECTED", payload: error });
-            })
-    }
+            });
+    };
 }
 
-export function deleteMedia(id) {
+export function deleteMedia (id) {
     return function (dispatch) {
         dispatch({ type: "DELETE_MEDIA_PENDING" });
         axios.post(config.nodeServer + "deleteMedia", {
@@ -65,28 +67,28 @@ export function deleteMedia(id) {
             })
             .catch((error) => {
                 dispatch({ type: "DELETE_MEDIA_REJECTED", payload: error });
-            })
-    }
+            });
+    };
 }
 
-export function mediaSelectionChanged(id, src, action) {
-    var data = { id, src }
-    if (action == "first") {
+export function mediaSelectionChanged (id, src, action) {
+    var data = { id, src };
+    if (action === "first") {
         return function (dispatch) {
             dispatch({ type: "MEDIA_SELECTION_FIRST", payload: data });
-        }
-    } else if (action == "changed") {
+        };
+    } else if (action === "changed") {
         return function (dispatch) {
             dispatch({ type: "MEDIA_SELECTION_CHANGED", payload: data });
-        }
-    } else if (action == "discard") {
+        };
+    } else if (action === "discard") {
         return function (dispatch) {
             dispatch({ type: "MEDIA_SELECTION_DISCARD" });
-        }
+        };
     }
 }
 
-export function saveSlots(medias, campaign, ad) {
+export function saveSlots (medias, campaign, ad) {
     return function (dispatch) {
         dispatch({ type: "MEDIA_SLOTS_SAVE_PENDING" });
         axios.post(config.nodeServer + "reserveMediaSlots", {
@@ -95,37 +97,36 @@ export function saveSlots(medias, campaign, ad) {
             ad: ad
         })
             .then((response) => {
-                if (response.data.success == true) {
-                    dispatch({ type: "MEDIA_SLOTS_SAVE_FULFILLED"});
+                if (response.data.success === true) {
+                    dispatch({ type: "MEDIA_SLOTS_SAVE_FULFILLED" });
                     setTimeout(() => {
                         dispatch({ type: "CHANGE_VAL" });
                     }, 2000);
                 }
             })
             .catch((error) => {
-                dispatch({type: "MEDIA_SLOTS_SAVE_REJECTED", payload: error});
-            })
-    }
+                dispatch({ type: "MEDIA_SLOTS_SAVE_REJECTED", payload: error });
+            });
+    };
     /*return function(dispatch){
         dispatch({type: "SLOTS_ERASED"});
     }*/
 }
 
-export function erase(campaign,ad) {
+export function erase (campaign, ad) {
     return function (dispatch) {
         dispatch({ type: "MEDIA_SLOTS_ERASE_PENDING" });
-        axios.post(config.nodeServer + "eraseSlots",{
+        axios.post(config.nodeServer + "eraseSlots", {
             campaign: campaign,
             ad: ad
         })
             .then((response) => {
-                if(response.data.success == true){
-                    dispatch({type: "MEDIA_SLOTS_ERASE_FULFILLED"});
+                if (response.data.success === true) {
+                    dispatch({ type: "MEDIA_SLOTS_ERASE_FULFILLED" });
                 }
             })
             .catch((error) => {
-                dispatch({type: "MEDIA_SLOTS_ERASE_REJECTED", payload: error});
-            })
-
-    }
+                dispatch({ type: "MEDIA_SLOTS_ERASE_REJECTED", payload: error });
+            });
+    };
 }

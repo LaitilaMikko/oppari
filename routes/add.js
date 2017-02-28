@@ -1,5 +1,6 @@
+/*eslint-env node*/
+/*eslint-env browser*/
 var express = require("express");
-var mongoose = require("mongoose");
 var Router = express.Router();
 var Add = require("../Models/add");
 var _ = require("underscore");
@@ -40,12 +41,12 @@ Router.post("/deleteAdd", function (req, res) {
             if (files) {
                 _.each(files, function (file) {
                     fs.unlink(file);
-                })
+                });
             }
             if (dirs) {
                 _.each(dirs, function (dir) {
                     rmdir(dir);
-                })
+                });
             }
         });
         res.json(deleteAdd);
@@ -60,11 +61,11 @@ Router.post("/addOrderNumsAfterDel", function (req, res) {
                 updateOrders(ad._id, newOrder);
             }
         });
-    })
+    });
     res.json("success");
-})
+});
 
-function updateOrders(id, orderNum) {
+function updateOrders (id, orderNum) {
     Add.update(
         { _id: id },
         {
@@ -72,7 +73,7 @@ function updateOrders(id, orderNum) {
         }, function (err, result) {
             if (err) { console.error(err); }
         }
-    )
+    );
 }
 
 Router.post("/updateAdd", function (req, res) {
@@ -98,7 +99,6 @@ Router.post("/updateAdd", function (req, res) {
 Router.post("/addOrderUpOrDown", function (req, res) {
     var add1ID = req.body.add1;
     var add2ID = req.body.add2;
-    var action = req.body.action;
     var add1OrderNum = req.body.add1OrderNum;
     var add2OrderNum = req.body.add2OrderNum;
     Add.update(
@@ -111,7 +111,7 @@ Router.post("/addOrderUpOrDown", function (req, res) {
         }, function (err, result) {
             if (err) { console.error(err); }
         }
-    )
+    );
     Add.update(
         { _id: add2ID },
         {
@@ -122,18 +122,18 @@ Router.post("/addOrderUpOrDown", function (req, res) {
         }, function (err, result) {
             if (err) { console.error(err); }
         }
-    )
-    res.json("success"); 
+    );
+    res.json("success");
 });
 
 Router.post("/deleteAdMedias", function (req, res) {
     Media.find({ ad: req.body.adName, campaign: req.body.campaign }, function (err, found) {
         _.each(found, function (ad) {
             ad.remove();
-        })
+        });
         res.json("Success");
     });
-})
+});
 
 
 module.exports = Router;

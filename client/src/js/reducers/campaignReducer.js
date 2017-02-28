@@ -1,4 +1,4 @@
-export default function reducer(state = {
+export default function reducer (state = {
     changed: false,
     created: false,
     fetching: false,
@@ -9,22 +9,21 @@ export default function reducer(state = {
     newCampaign: {},
     newCampaignID: null,
     currSelection: {}
-},action){
-
-    switch(action.type){
+}, action) {
+    switch (action.type) {
 
         case "FETCH_CAMPAIGNS_PENDING": {
             return {
                 ...state,
-                fetching: true    
-            }
+                fetching: true
+            };
         }
         case "FETCH_CAMPAIGNS_REJECTED": {
             return {
                 ...state,
                 fetching: false,
                 error: action.payload
-            }
+            };
         }
         case "FETCH_CAMPAIGNS_FULFILLED": {
             return {
@@ -34,7 +33,7 @@ export default function reducer(state = {
                 campaigns: action.payload,
                 changed: false,
                 created: false
-            }
+            };
         }
         case "CREATE_CAMPAIGN_FULFILLED": {
             return {
@@ -42,40 +41,40 @@ export default function reducer(state = {
                 created: true,
                 currSelection: action.payload,
                 campaigns: [...state.campaigns, action.payload]
-            }
+            };
         }
         case "CREATE_CAMPAIGN_PENDING": {
             return {
                 ...state,
-                changed: false             
-            }
+                changed: false
+            };
         }
         case "CREATE_CAMPAIGN_REJECTED": {
-            return{
+            return {
                 ...state,
                 created: false,
                 error: action.payload
-            }
+            };
         }
         case "DELETE_CAMPAIGN_FULFILLED": {
-            return{
+            return {
                 ...state,
-                deleted: true    
-            }
+                deleted: true
+            };
         }
         case "DELETE_CAMPAIGN_REJECTED": {
-            return{
+            return {
                 ...state,
                 deleted: false,
-                error: action.payload    
-            }
+                error: action.payload
+            };
         }
         case "CAMPAIGN_SELECT_CHANGED": {
-            return{
+            return {
                 ...state,
                 changed: true,
-                currSelection: action.payload    
-            }
+                currSelection: action.payload
+            };
         }
     }
     return state;

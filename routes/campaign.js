@@ -1,5 +1,6 @@
+/*eslint-env node*/
+/*eslint-env browser*/
 var express = require("express");
-var mongoose = require("mongoose");
 var Router = express.Router();
 var Campaign = require("../Models/campaign");
 var Add = require("../Models/add");
@@ -45,21 +46,21 @@ Router.post("/getLatestID", function (req, res) {
 
 //Kampanjan poistaminen
 Router.post("/deleteCampaign", function (req, res) {
-    Campaign.findOne({ _id: req.body.id }, function(err, campaign){
+    Campaign.findOne({ _id: req.body.id }, function (err, campaign) {
         var dir = __dirname.split("routes")[0];
         var path = dir + "Medias/";
         if (err) {console.error(err);}
         campaign.remove();
-        rmdir(path + campaign.name,function(err, dirs, files){
-            if(files){
-                _.each(files, function(file){
+        rmdir(path + campaign.name, function (err, dirs, files) {
+            if (files) {
+                _.each(files, function (file) {
                     fs.unlink(file);
-                })
+                });
             }
-            if(dirs){
-                _.each(dirs,function(dir){
+            if (dirs) {
+                _.each(dirs, function (dir) {
                     rmdir(dir);
-                })
+                });
             }
         });
     });
@@ -75,13 +76,13 @@ Router.post("/deleteCampaignAdds", function (req, res) {
     res.json("success");
 });
 
-Router.post("/deleteCampaignMedia", function(req,res){
-    Media.find({campaign:req.body.campaign}, function (err, found){
-        _.each(found, function(media){
+Router.post("/deleteCampaignMedia", function (req, res) {
+    Media.find({ campaign: req.body.campaign }, function (err, found) {
+        _.each(found, function (media) {
             media.remove();
         });
     });
     res.json("success");
-})
+});
 
 module.exports = Router;
