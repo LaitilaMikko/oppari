@@ -17,7 +17,9 @@ Router.post("/addCampaign", function (req, res) {
                 name: req.body.name,
                 screens: req.body.screens,
                 screen_width: req.body.screen_width,
-                screen_height: req.body.screen_height
+                screen_height: req.body.screen_height,
+                display_w: req.body.displayW,
+                display_h: req.body.displayH
             });
             newCampaign.save(function (err, createdCampaign) {
                 if (err) return console.error(err);

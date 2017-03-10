@@ -2,18 +2,31 @@
     padding: 10px;
     border-style: solid;
     border-width: 2px;
+    border-radius: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 2px;
+    background-color: lightgray;
 }
 .lower{
     padding: 10px;
     border-style: solid;
     border-width: 2px;
-    border-top: none;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 2px;
+    border-radius: 10px;
+    background-color: lightgray;
 }
 .center{
+    margin-top: 2px;
+    margin-left: 3px;
+    margin-right: 3px;
+    border-radius: 10px;
     padding: 10px;
     border-style: solid;
     border-width: 2px;
-    border-top: none;
+    background-color: lightgray;
 }
 .title{
     text-align: center;
@@ -105,5 +118,9 @@ btn btn-danger {
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     margin-left: 5px;
+}
+
+.navBtn {
+    margin-left: 2px;
 }
 

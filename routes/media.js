@@ -126,6 +126,7 @@ Router.post("/reserveMediaSlots", function (req, res) {
                 if (String(newMedia._id) === String(oldMedia._id)) {
                     if (newMedia.reservedSlots.length > 0) {
                         oldMedia.reservedSlots = newMedia.reservedSlots;
+                        oldMedia.pos = newMedia.pos;
                         oldMedia.save(function (err, result) {
                             if (err) {
                                 console.error(err);
@@ -153,6 +154,7 @@ Router.post("/eraseSlots", function (req, res) {
         }
         _.each(result, function (media) {
             media.reservedSlots = [];
+            media.pos = [];
             media.save(function (err, result) {
                 if (err) {
                     console.error(err);

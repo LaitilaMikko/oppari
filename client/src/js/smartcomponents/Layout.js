@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { fetchCampaigns, createCampaign, deleteCampaign, showCurrentCampaignData } from "../actions/campaignActions";
+import { location, fetchCampaigns,
+    createCampaign, deleteCampaign, showCurrentCampaignData } from "../actions/campaignActions";
 
 
 import AllCampaigns from "../dumbcomponents/allCampaigns";
@@ -17,6 +18,7 @@ import CreateCampaign from "../dumbcomponents/CreateCampaign";
 
 export default class Layout extends React.Component {
     componentWillMount () {
+        this.props.dispatch(location("editor"));
         this.props.dispatch(fetchCampaigns());
     }
 
@@ -35,7 +37,7 @@ export default class Layout extends React.Component {
     render () {
         return (
             <div>
-                <Header title="FrontPage" location="FrontPage" />
+                <Header campaigns={this.props.campaigns} title="FrontPage" location="FrontPage" />
                 <CreateCampaign current={this.props.campaigns.currSelection}
                     createCampaign={this.createCampaign.bind(this)}
                 />

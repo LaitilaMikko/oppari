@@ -70,7 +70,7 @@ export default class Adds extends React.Component {
         var currCampName = this.props.currentCampaign.name;
         return (
             <div>
-                <Header title="Ads" location="FrontPage->Ads" />
+                <Header campaigns={this.props.campaign} title="Ads" location="FrontPage->Ads" />
                 <AllAdds changeOrder={this.orderUpOrDown.bind(this)} deleteAdd={this.deleteAdd.bind(this)}
                     startCreate={this.startCreatingAd.bind(this)} curr={this.currentAdd.bind(this)}
                     campaign={this.props.currentCampaign.name} adds={this.props.adds}

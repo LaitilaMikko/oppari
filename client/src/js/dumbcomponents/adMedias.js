@@ -16,7 +16,9 @@ export default class AddMedias extends React.Component {
             this.props.selectChanged(img.name, img.src, "first");
         } else if (this.props.medias.selected === true && img.className !== "mediaImgSelected") {
             var prevSelection = document.getElementsByClassName("mediaImgSelected")[0];
-            prevSelection.className = "mediaImg";
+            if (prevSelection.className !== undefined) {
+                prevSelection.className = "mediaImg";
+            }
             img.className = "mediaImgSelected";
             this.props.selectChanged(img.name, img.src, "changed");
         } else if (img.className === "mediaImgSelected") {

@@ -87,8 +87,8 @@ export default class AllAdds extends React.Component {
                             {mappedAdds}
                         </select>
                         <div className="arrows">
-                            <p onClick={this.handleUp.bind(this)}>&#x21E7;</p>
-                            <p onClick={this.handleDown.bind(this)}>&#x21E9;</p>
+                            <p onClick={this.handleUp.bind(this)}><span className="glyphicon glyphicon-arrow-up" /></p>
+                            <p onClick={this.handleDown.bind(this)}><span className="glyphicon glyphicon-arrow-down" /></p>
                         </div>
                     </div>
                     <br />

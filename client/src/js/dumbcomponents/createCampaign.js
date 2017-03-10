@@ -14,7 +14,8 @@ export default class CreateCampaign extends React.Component {
 
     //Tällä saadaan "Lisää" -button aktiiviseksi vasta kun kaikki kentät täytett
     componentWillUpdate (nextProps, nextState) {
-        nextState.invalidData = !(nextState.name && nextState.w && nextState.h && nextState.screens);
+        nextState.invalidData = !(nextState.name && nextState.w &&
+             nextState.h && nextState.screens && nextState.dh && nextState.dw);
     }
 
     //Submit-buttonin clikin handlaus
@@ -34,6 +35,12 @@ export default class CreateCampaign extends React.Component {
     }
     hChange (event) {
         this.setState({ h: event.target.value });
+    }
+    dhChange (event) {
+        this.setState({ dh: event.target.value });
+    }
+    dwChange (event) {
+        this.setState({ dw: event.target.value });
     }
     screensChange (event) {
         this.setState({ screens: event.target.value });
@@ -57,14 +64,20 @@ export default class CreateCampaign extends React.Component {
                         <p><input onChange={this.nameChange.bind(this)} placeholder="Name"
                             type="text" name="name" id="name"/>
                         </p>
-                        <p><input onChange={this.wChange.bind(this)} placeholder="Screen Width"
+                        <p><input onChange={this.wChange.bind(this)} placeholder="Panel Width"
                              type="number" name="screenW" id="screenW"/>
                         </p>
-                        <p><input onChange={this.hChange.bind(this)} placeholder="Screen Height"
+                        <p><input onChange={this.hChange.bind(this)} placeholder="Panel Height"
                              type="number" name="screenH" id="screenH"/>
                         </p>
-                        <p><input onChange={this.screensChange.bind(this)} placeholder="Number of screens"
+                        <p><input onChange={this.screensChange.bind(this)} placeholder="Number of panels"
                              type="number" name="screens" id="screens"/>
+                        </p>
+                        <p><input onChange={this.dwChange.bind(this)} placeholder="Display Width"
+                             type="number" name="displayW" id="displayW"/>
+                        </p>
+                        <p><input onChange={this.dhChange.bind(this)} placeholder="Display Height"
+                             type="number" name="displayH" id="displayH"/>
                         </p>
                         <p><button className="btn btn-success" disabled={this.state.invalidData} type="submit"
                             defaultValue="Add Campaign"

@@ -49,7 +49,7 @@ export default class Medias extends React.Component {
     render () {
         return (
             <div>
-                <Header title="Medias" location="FrontPage->Ads->Medias" />
+                <Header campaigns={this.props.campaign} title="Medias" location="FrontPage->Ads->Medias" />
                 <MediaSlots save={this.saveSlots.bind(this)} erase={this.erase.bind(this)}
                     medias={this.props.medias} ad={this.props.adds.currAdd}
                     campaign={this.props.currentCampaign}

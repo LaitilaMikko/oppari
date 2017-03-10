@@ -9,6 +9,7 @@ import Store from "./store";
 import Adds from "./smartcomponents/adds";
 import NoMatch from "./dumbcomponents/noMatch";
 import Medias from "./smartcomponents/medias";
+import Controller from "./smartcomponents/controller";
 
 require("../styles/stylesheet.scss");
 
@@ -20,6 +21,7 @@ ReactDOM.render(
             <Route path="/" component={Layout}/>
             <Route path="adds" component={Adds}/>
             <Route path="medias" component={Medias} />
+            <Route path="controller" component={Controller} />
             <Route path="*" component={NoMatch}/>
         </Router>
     </Provider>

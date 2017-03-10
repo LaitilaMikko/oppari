@@ -49,6 +49,9 @@ export function fetchMedias (campaign, ad) {
         })
             .then((response) => {
                 dispatch({ type: "FETCH_MEDIA_FULFILLED", payload: response.data });
+                setTimeout(() => {
+                    dispatch({ type: "CHANGE_VAL" });
+                }, 100);
             })
             .catch((error) => {
                 dispatch({ type: "FETCH_MEDIA_REJECTED", payload: error });

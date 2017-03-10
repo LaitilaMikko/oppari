@@ -23,7 +23,9 @@ export function createCampaign (data) {
             name: data.name,
             screens: data.screens,
             screen_width: data.screenW,
-            screen_height: data.screenH
+            screen_height: data.screenH,
+            displayW: data.displayW,
+            displayH: data.displayH
         })
             .then((response) => {
                 dispatch({ type: "CREATE_CAMPAIGN_FULFILLED", payload: data });
@@ -61,6 +63,18 @@ export function deleteCampaign (id, campaign) {
 export function showCurrentCampaignData (data) {
     return function (dispatch) {
         dispatch({ type: "CAMPAIGN_SELECT_CHANGED", payload: data });
+    };
+}
+
+export function location (location) {
+    return function(dispatch) {
+        if (location === "controller") {
+            dispatch({ type: "LOCATION_CONTROLLER" });
+        } else if (location === "editor") {
+            dispatch({ type: "LOCATION_EDITOR" });
+        } else if (location === "player") {
+            dispatch({ type: "LOCATION_PLAYER" });
+        }
     };
 }
 

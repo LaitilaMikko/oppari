@@ -1,4 +1,7 @@
 export default function reducer (state = {
+    player: true,
+    controller: true,
+    editor: false,
     changed: false,
     created: false,
     fetching: false,
@@ -11,6 +14,31 @@ export default function reducer (state = {
     currSelection: {}
 }, action) {
     switch (action.type) {
+        case "LOCATION_CONTROLLER": {
+            return {
+                ...state,
+                controller: false,
+                editor: true,
+                player: true
+            };
+        }
+        case "LOCATION_EDITOR": {
+            return {
+                ...state,
+                controller: true,
+                editor: false,
+                player: true
+            };
+        }
+
+        case "LOCATION_PLAYER": {
+            return {
+                ...state,
+                controller: false,
+                editor: false,
+                player: false
+            };
+        }
 
         case "FETCH_CAMPAIGNS_PENDING": {
             return {

@@ -15,7 +15,8 @@ export default function reducer (state = {
     erased: false,
     erasing: false,
     saving: false,
-    saved: false
+    saved: false,
+    currRow: 0
 }, action) {
     switch (action.type) {
         case "MEDIA_SLOTS_ERASE_PENDING": {
@@ -99,7 +100,8 @@ export default function reducer (state = {
                 ...state,
                 uploaded: false,
                 failed: false,
-                saved: false
+                saved: false,
+                fetched: false
             };
         }
         case "DELETE_MEDIA_PENDING": {
