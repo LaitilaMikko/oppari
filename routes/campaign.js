@@ -87,4 +87,17 @@ Router.post("/deleteCampaignMedia", function (req, res) {
     res.json("success");
 });
 
+Router.post("/getAllByCampaign", function (req, res) {
+    var result = {};
+    result.campaign = req.body.campaign;
+    Add.find({ campaign: req.body.campaign }, function (err, adds) {
+        _.each(adds, function(add) {
+            result.add = add;
+            Media.find({ campaign: req.body.campaign, ad: add.name }, function (err, medias) {
+                result.medias = medias;
+            });
+        });
+    });
+});
+
 module.exports = Router;
