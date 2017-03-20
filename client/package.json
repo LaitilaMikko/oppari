@@ -45,7 +45,7 @@
     "babel-preset-react": "^6.16.0"
   },
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --content-base ./public --inline --hot --history-api-fallback"
+    "dev": "./node_modules/.bin/webpack-dev-server --content-base ./public --inline --hot"
   },
   "author": "Mikko Laitila",
   "license": "ISC"

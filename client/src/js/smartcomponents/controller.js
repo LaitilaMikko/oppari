@@ -25,6 +25,7 @@ export default class Controller extends React.Component {
 
     handlePlay(e) {
         e.preventDefault();
+        this.props.dispatch(GetAllByCampaign("Mikko"));
     }
 
     handleChange(e) {

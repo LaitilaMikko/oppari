@@ -16,6 +16,9 @@ app.use(cookieParser());
 app.use(cors());
 app.use(fileUpload());
 
+app.use(express.static("./client/public"));
+app.use(express.static("Medias"));
+
 
 app.use(require("./routes/campaign"));
 app.use(require("./routes/add"));
